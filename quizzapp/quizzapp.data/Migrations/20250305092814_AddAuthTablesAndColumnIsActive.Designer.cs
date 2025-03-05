@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using quizzapp.data.AppDbContext;
 
@@ -11,9 +12,11 @@ using quizzapp.data.AppDbContext;
 namespace quizzapp.data.Migrations
 {
     [DbContext(typeof(QuizzAppDbContext))]
-    partial class QuizzAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250305092814_AddAuthTablesAndColumnIsActive")]
+    partial class AddAuthTablesAndColumnIsActive
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using quizzapp.model.Base;
+using quizzapp.model.Relation;
 
 namespace quizzapp.model.Model;
 
@@ -14,13 +15,12 @@ public class Quiz : BaseEntity
     [StringLength(500)]
     public string? Description { get; set; }
 
-    [MaxLength(3600)]
-    [MinLength(0)]
+    [Range(1, 3600, ErrorMessage = "Duration must be between 1 second and 1 hour.")]
     public required int Duration { get; set; }
 
     [StringLength(500)]
     public string? ThumbnailUrl { get; set; }
 
-
     public ICollection<Question>? Questions { get; set; } = [];
+    public ICollection<UserQuiz> UserQuizzes { get; set; } = [];
 }

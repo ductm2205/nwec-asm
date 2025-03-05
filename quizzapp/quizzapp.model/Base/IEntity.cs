@@ -7,4 +7,5 @@ public interface IEntity
     DateTime UpdatedAt { get; set; }
     DateTime DeletedAt { get; set; }
     bool IsDeleted { get; set; }
+    bool IsActive { get; set; }
 }
