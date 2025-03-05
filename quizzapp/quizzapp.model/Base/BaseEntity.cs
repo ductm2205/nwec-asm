@@ -8,5 +8,5 @@ public class BaseEntity : IEntity
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     public DateTime UpdatedAt { get; set; }
     public DateTime DeletedAt { get; set; }
-    public bool IsDeletedAt { get; set; }
+    public bool IsDeleted { get; set; }
 }
