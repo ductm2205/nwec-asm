@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using quizzapp.data.AppDbContext;
+using quizzapp.data.Infrastructure;
+using quizzapp.data.Infrastructure.Repository;
 using quizzapp.data.Seeder;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +14,10 @@ builder.Services.AddOpenApi();
 builder.Services.AddDbContext<QuizzAppDbContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default"))
 );
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 
 var app = builder.Build();
 

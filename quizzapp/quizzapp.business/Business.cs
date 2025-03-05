@@ -1,6 +1,6 @@
 ﻿namespace quizzapp.business;
 
-public class Class1
+public class Business
 {
 
 }
