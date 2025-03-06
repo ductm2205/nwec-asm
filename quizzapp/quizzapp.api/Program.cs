@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using quizzapp.business;
 using quizzapp.data.AppDbContext;
 using quizzapp.data.Infrastructure;
 using quizzapp.data.Infrastructure.Repository;
@@ -18,6 +19,10 @@ builder.Services.AddDbContext<QuizzAppDbContext>(
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+
+builder.Services.AddControllers();
+builder.Services.AddMediatR(cfg =>
+    cfg.RegisterServicesFromAssembly(typeof(Business).Assembly));
 
 var app = builder.Build();
 

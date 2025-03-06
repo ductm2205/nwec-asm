@@ -1,4 +1,6 @@
 using System;
+using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 using quizzapp.data.AppDbContext;
 using quizzapp.model.Base;
 
@@ -8,33 +10,44 @@ public class BaseRepository<T>(QuizzAppDbContext context) : IBaseRepository<T> w
 {
     private readonly QuizzAppDbContext _context = context;
 
-    public int Add(T entity)
+    public void Add(T entity)
     {
         _context.Set<T>().Add(entity);
-        return 1;
     }
 
-    public bool Delete(Guid id)
+    public async Task<T> AddAsync(T entity)
+    {
+        await _context.Set<T>().AddAsync(entity);
+        return entity;
+    }
+
+    public void Delete(Guid id)
     {
         var target = GetById(id);
-
-        if (target == null)
-        {
-            return false;
-        }
-
-        return Delete(target);
+        Delete(target);
     }
 
-    public bool Delete(T entity)
+    public void Delete(T entity)
     {
-        if (entity == null)
+        _context.Set<T>().Remove(entity);
+    }
+
+    public IQueryable<T> Get(Expression<Func<T, bool>>? filter = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, string includeProperties = "")
+    {
+        IQueryable<T> query = _context.Set<T>();
+
+        if (filter != null)
         {
-            return false;
+            query = query.Where(filter);
         }
 
-        _context.Set<T>().Remove(entity);
-        return true;
+        foreach (var includeProperty in includeProperties.Split(
+            [','], StringSplitOptions.RemoveEmptyEntries))
+        {
+            query = query.Include(includeProperty);
+        }
+
+        return orderBy != null ? orderBy(query) : query;
     }
 
     public IEnumerable<T> GetAll()
@@ -42,13 +55,34 @@ public class BaseRepository<T>(QuizzAppDbContext context) : IBaseRepository<T> w
         return [.. _context.Set<T>()];
     }
 
+    public async Task<IEnumerable<T>> GetAllAsync()
+    {
+        return await _context.Set<T>().ToListAsync();
+    }
+
     public T? GetById(Guid id)
     {
         return _context.Set<T>().Find(id);
     }
 
-    public bool Update(T entity)
+    public async Task<T?> GetByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        return await _context.Set<T>().FindAsync(id);
     }
+
+    public IQueryable<T> GetQuery()
+    {
+        return _context.Set<T>().AsQueryable<T>();
+    }
+
+    public IQueryable<T> GetQuery(Expression<Func<T, bool>> where)
+    {
+        return GetQuery().Where(where);
+    }
+
+    public void Update(T entity)
+    {
+        _context.Set<T>().Update(entity);
+    }
+
 }

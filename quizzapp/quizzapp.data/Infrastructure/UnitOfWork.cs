@@ -78,21 +78,6 @@ public class UnitOfWork : IUnitOfWork
 
     IBaseRepository<T> IUnitOfWork.BaseRepository<T>()
     {
-        throw new NotImplementedException();
+        return new BaseRepository<T>(_context);
     }
-}
-
-public interface IUnitOfWork : IDisposable
-{
-    QuizzAppDbContext Context { get; }
-
-    IBaseRepository<Quiz> QuizRepository { get; }
-    IBaseRepository<Question> QuestionRepository { get; }
-    IBaseRepository<Answer> AnswerRepository { get; }
-
-    IBaseRepository<T> BaseRepository<T>() where T : class, IEntity;
-
-    Task<int> SaveChangesAsync();
-
-    int SaveChanges();
 }
