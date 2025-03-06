@@ -12,9 +12,11 @@ public class User : IdentityUser<Guid>, IEntity
     [Required]
     [StringLength(50, MinimumLength = 3)]
     public required string FirstName { get; set; }
+    
     [Required]
     [StringLength(50, MinimumLength = 3)]
     public required string LastName { get; set; }
+    
     [NotMapped]
     public string DisplayName => FirstName + " " + LastName;
     public DateTime DateOfBirth { get; set; }
@@ -23,8 +25,8 @@ public class User : IdentityUser<Guid>, IEntity
     public DateTime UpdatedAt { get; set; }
     public DateTime DeletedAt { get; set; }
     public bool IsDeleted { get; set; }
+
     [Required]
     public required bool IsActive { get; set; } = true;
-    public ICollection<UserRole>? UserRoles { get; set; } = [];
     public ICollection<UserQuiz> UserQuizzes { get; set; } = [];
 }

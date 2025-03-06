@@ -1,4 +1,5 @@
 using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using quizzapp.model.Auth;
 using quizzapp.model.Model;
@@ -6,7 +7,7 @@ using quizzapp.model.Relation;
 
 namespace quizzapp.data.AppDbContext;
 
-public class QuizzAppDbContext(DbContextOptions<QuizzAppDbContext> options) : DbContext(options)
+public class QuizzAppDbContext(DbContextOptions<QuizzAppDbContext> options) : IdentityDbContext<User, Role, Guid>(options)
 {
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -28,11 +29,6 @@ public class QuizzAppDbContext(DbContextOptions<QuizzAppDbContext> options) : Db
             .HasForeignKey(answer => answer.QuestionId)
             .OnDelete(DeleteBehavior.Cascade);
         });
-
-        // User & Role
-        modelBuilder.Entity<UserRole>().HasKey(ur => new { ur.UserId, ur.RoleId });
-        modelBuilder.Entity<UserRole>().HasOne(ur => ur.User).WithMany(u => u.UserRoles).HasForeignKey(u => u.UserId);
-        modelBuilder.Entity<UserRole>().HasOne(ur => ur.Role).WithMany(r => r.UserRoles).HasForeignKey(r => r.RoleId);
 
         // User & Quiz
         modelBuilder.Entity<UserQuiz>().HasKey(userQuiz => userQuiz.Id);
@@ -65,11 +61,5 @@ public class QuizzAppDbContext(DbContextOptions<QuizzAppDbContext> options) : Db
     public DbSet<Question> Questions { get; set; }
 
     public DbSet<Answer> Answers { get; set; }
-
-    public DbSet<User> Users { get; set; }
-
-    public DbSet<Role> Roles { get; set; }
-
-    public DbSet<UserRole> UserRoles { get; set; }
 
 }

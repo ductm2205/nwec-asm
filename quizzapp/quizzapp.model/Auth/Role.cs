@@ -17,5 +17,4 @@ public class Role : IdentityRole<Guid>, IEntity
     public bool IsDeleted { get; set; }
     [Required]
     public required bool IsActive { get; set; } = true;
-    public ICollection<UserRole> UserRoles { get; set; } = [];
 }
