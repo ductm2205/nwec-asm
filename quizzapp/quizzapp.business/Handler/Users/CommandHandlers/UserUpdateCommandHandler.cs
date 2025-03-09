@@ -1,6 +1,7 @@
 using System;
 using quizzapp.business.Handler.Base;
 using quizzapp.business.Handler.Users.Commands;
+using quizzapp.core.Exceptions;
 using quizzapp.data.Infrastructure;
 using quizzapp.model.Auth;
 
@@ -14,7 +15,7 @@ public class UserUpdateCommandHandler : BaseCommandHandler<UserUpdateCommand, bo
 
     protected override async Task<bool> HandleCommand(UserUpdateCommand request, CancellationToken cancellationToken)
     {
-        var user = await _unitOfWork.BaseRepository<User>().GetByIdAsync(request.Id);
+        var user = await _unitOfWork.UserRepository.GetByIdAsync(request.Id) ?? throw new EntityNotFoundException();
 
         user.UserName = request.UserName;
         user.Email = request.Email;
@@ -24,7 +25,7 @@ public class UserUpdateCommandHandler : BaseCommandHandler<UserUpdateCommand, bo
         user.IsActive = request.IsActive;
         user.UpdatedAt = DateTime.UtcNow;
 
-        _unitOfWork.BaseRepository<User>().Update(user);
+        _unitOfWork.UserRepository.Update(user);
         return await _unitOfWork.SaveChangesAsync() > 0;
     }
 }

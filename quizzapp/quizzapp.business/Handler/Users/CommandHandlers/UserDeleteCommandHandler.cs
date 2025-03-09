@@ -14,10 +14,10 @@ public class UserDeleteCommandHandler : BaseCommandHandler<UserDeleteCommand, bo
 
     protected override async Task<bool> HandleCommand(UserDeleteCommand request, CancellationToken cancellationToken)
     {
-        var user = await _unitOfWork.BaseRepository<User>().GetByIdAsync(request.Id);
+        var user = await _unitOfWork.UserRepository.GetByIdAsync(request.Id);
         if (user == null) return false;
 
-        _unitOfWork.BaseRepository<User>().Delete(user);
+        _unitOfWork.UserRepository.Delete(user);
         return await _unitOfWork.SaveChangesAsync() > 0;
     }
 }

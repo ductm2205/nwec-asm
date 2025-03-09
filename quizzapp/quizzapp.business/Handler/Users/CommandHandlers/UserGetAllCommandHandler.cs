@@ -15,13 +15,13 @@ public class UserGetAllCommandHandler : BaseCommandHandler<UserGetAllCommand, IE
 
     protected override async Task<IEnumerable<User>> HandleCommand(UserGetAllCommand request, CancellationToken cancellationToken)
     {
-        var query = _unitOfWork.BaseRepository<User>().GetQuery();
+        var query = _unitOfWork.UserRepository.GetQuery();
 
         if (!request.IncludeInactive)
         {
             query = query.Where(u => u.IsActive);
         }
 
-        return await query.ToListAsync();
+        return await query.ToListAsync(cancellationToken: cancellationToken);
     }
 }

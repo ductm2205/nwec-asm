@@ -28,7 +28,7 @@ public class UserCreateCommandHandler : BaseCommandHandler<UserCreateCommand, Us
             IsActive = true
         };
 
-        await _unitOfWork.BaseRepository<User>().AddAsync(user);
+        await _unitOfWork.UserRepository.AddAsync(user);
         await _unitOfWork.SaveChangesAsync();
         return user;
     }

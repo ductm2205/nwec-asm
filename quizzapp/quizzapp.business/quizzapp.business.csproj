@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\quizzapp.core\quizzapp.core.csproj" />
     <ProjectReference Include="..\quizzapp.data\quizzapp.data.csproj" />
     <ProjectReference Include="..\quizzapp.model\quizzapp.model.csproj" />
   </ItemGroup>
