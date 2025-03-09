@@ -75,7 +75,7 @@ public static class SeedData
             {
                 Content = "Which planet is known as the Red Planet?",
                 QuestionType = QuestionType.SingleChoice,
-                QuizzId = quizzes[0].Id,
+                QuizId = quizzes[0].Id,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
                 Answers =
@@ -91,7 +91,7 @@ public static class SeedData
             {
                 Content = "What is the chemical symbol for gold?",
                 QuestionType = QuestionType.SingleChoice,
-                QuizzId = quizzes[1].Id,
+                QuizId = quizzes[1].Id,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
                 Answers =
@@ -107,7 +107,7 @@ public static class SeedData
             {
                 Content = "What is the square root of 144?",
                 QuestionType = QuestionType.SingleChoice,
-                QuizzId = quizzes[2].Id,
+                QuizId = quizzes[2].Id,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
                 Answers =
@@ -123,7 +123,7 @@ public static class SeedData
             {
                 Content = "In which year did World War II end?",
                 QuestionType = QuestionType.SingleChoice,
-                QuizzId = quizzes[3].Id,
+                QuizId = quizzes[3].Id,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
                 Answers =
@@ -139,7 +139,7 @@ public static class SeedData
             {
                 Content = "Which programming language is often used for web development?",
                 QuestionType = QuestionType.SingleChoice,
-                QuizzId = quizzes[4].Id,
+                QuizId = quizzes[4].Id,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
                 Answers =

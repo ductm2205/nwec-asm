@@ -17,7 +17,7 @@ public class QuizzAppDbContext(DbContextOptions<QuizzAppDbContext> options) : Id
             quizz
             .HasMany(quizz => quizz.Questions)
             .WithOne(question => question.Quiz)
-            .HasForeignKey(question => question.QuizzId)
+            .HasForeignKey(question => question.QuizId)
             .OnDelete(DeleteBehavior.Cascade);
         });
 
