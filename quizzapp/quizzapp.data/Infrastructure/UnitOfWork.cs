@@ -2,6 +2,7 @@ using System;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using quizzapp.data.AppDbContext;
 using quizzapp.data.Infrastructure.Repository;
+using quizzapp.model.Auth;
 using quizzapp.model.Base;
 using quizzapp.model.Model;
 
@@ -24,6 +25,12 @@ public class UnitOfWork : IUnitOfWork
     public IBaseRepository<Question> QuestionRepository => _questionRepo ??= new BaseRepository<Question>(_context);
     private IBaseRepository<Answer>? _answerRepo;
     public IBaseRepository<Answer> AnswerRepository => _answerRepo ??= new BaseRepository<Answer>(_context);
+
+    private IBaseRepository<Role>? _roleRepo;
+    public IBaseRepository<Role> RoleRepository => _roleRepo ??= new BaseRepository<Role>(_context);
+    private IBaseRepository<User>? _userRepo;
+    public IBaseRepository<User> UserRepository => _userRepo ??= new BaseRepository<User>(_context);
+
 
     public void Dispose(bool isDisposing)
     {

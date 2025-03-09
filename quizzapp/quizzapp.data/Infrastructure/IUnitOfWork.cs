@@ -1,5 +1,6 @@
 using quizzapp.data.AppDbContext;
 using quizzapp.data.Infrastructure.Repository;
+using quizzapp.model.Auth;
 using quizzapp.model.Base;
 using quizzapp.model.Model;
 
@@ -12,6 +13,9 @@ public interface IUnitOfWork : IDisposable
     IBaseRepository<Quiz> QuizRepository { get; }
     IBaseRepository<Question> QuestionRepository { get; }
     IBaseRepository<Answer> AnswerRepository { get; }
+
+    IBaseRepository<Role> RoleRepository { get; }
+    IBaseRepository<User> UserRepository { get; }
 
     IBaseRepository<T> BaseRepository<T>() where T : class, IEntity;
 
