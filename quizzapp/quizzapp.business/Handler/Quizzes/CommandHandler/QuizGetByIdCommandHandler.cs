@@ -2,6 +2,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using quizzapp.business.Handler.Base;
 using quizzapp.business.Handler.Quizzes.Command;
+using quizzapp.core.Exceptions;
 using quizzapp.data.Infrastructure;
 using quizzapp.model.Model;
 
@@ -15,10 +16,6 @@ public class QuizGetByIdCommandHandler : BaseCommandHandler<QuizGetByIdCommand, 
 
     protected override async Task<Quiz> HandleCommand(QuizGetByIdCommand request, CancellationToken cancellationToken)
     {
-        return await _unitOfWork.BaseRepository<Quiz>()
-            .GetQuery(q => q.Id == request.Id)
-            .Include(q => q.Questions)
-            .ThenInclude(q => q.Answers)
-            .FirstOrDefaultAsync();
+        return await _unitOfWork.QuizRepository.GetByIdAsync(request.Id) ?? throw new EntityNotFoundException();
     }
 }

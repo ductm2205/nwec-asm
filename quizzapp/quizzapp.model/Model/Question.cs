@@ -14,7 +14,7 @@ public class Question : BaseEntity
     public required QuestionType QuestionType { get; set; }
 
 
-    public Guid QuizzId { get; set; }
+    public Guid QuizId { get; set; }
 
     public Quiz Quiz { get; set; }
 

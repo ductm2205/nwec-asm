@@ -14,7 +14,7 @@ public class QuizUpdateCommandHandler : BaseCommandHandler<QuizUpdateCommand, bo
 
     protected override async Task<bool> HandleCommand(QuizUpdateCommand request, CancellationToken cancellationToken)
     {
-        var quiz = await _unitOfWork.BaseRepository<Quiz>().GetByIdAsync(request.Id);
+        var quiz = await _unitOfWork.QuizRepository.GetByIdAsync(request.Id);
         if (quiz == null) return false;
 
         quiz.Title = request.Title;
@@ -23,7 +23,7 @@ public class QuizUpdateCommandHandler : BaseCommandHandler<QuizUpdateCommand, bo
         quiz.ThumbnailUrl = request.ThumbnailUrl;
         quiz.UpdatedAt = DateTime.UtcNow;
 
-        _unitOfWork.BaseRepository<Quiz>().Update(quiz);
+        _unitOfWork.QuizRepository.Update(quiz);
         return await _unitOfWork.SaveChangesAsync() > 0;
     }
 }
