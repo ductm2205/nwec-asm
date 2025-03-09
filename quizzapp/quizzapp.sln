@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "quizzapp.data", "quizzapp.d
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "quizzapp.model", "quizzapp.model\quizzapp.model.csproj", "{F1DA43DE-0F78-4EAC-B017-5DAF77F47CA8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "quizzapp.core", "quizzapp.core\quizzapp.core.csproj", "{5EC6994B-0E53-4E0B-B83B-B0C64A0FF7AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,18 @@ Global
 		{F1DA43DE-0F78-4EAC-B017-5DAF77F47CA8}.Release|x64.Build.0 = Release|Any CPU
 		{F1DA43DE-0F78-4EAC-B017-5DAF77F47CA8}.Release|x86.ActiveCfg = Release|Any CPU
 		{F1DA43DE-0F78-4EAC-B017-5DAF77F47CA8}.Release|x86.Build.0 = Release|Any CPU
+		{5EC6994B-0E53-4E0B-B83B-B0C64A0FF7AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EC6994B-0E53-4E0B-B83B-B0C64A0FF7AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EC6994B-0E53-4E0B-B83B-B0C64A0FF7AD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5EC6994B-0E53-4E0B-B83B-B0C64A0FF7AD}.Debug|x64.Build.0 = Debug|Any CPU
+		{5EC6994B-0E53-4E0B-B83B-B0C64A0FF7AD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5EC6994B-0E53-4E0B-B83B-B0C64A0FF7AD}.Debug|x86.Build.0 = Debug|Any CPU
+		{5EC6994B-0E53-4E0B-B83B-B0C64A0FF7AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EC6994B-0E53-4E0B-B83B-B0C64A0FF7AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EC6994B-0E53-4E0B-B83B-B0C64A0FF7AD}.Release|x64.ActiveCfg = Release|Any CPU
+		{5EC6994B-0E53-4E0B-B83B-B0C64A0FF7AD}.Release|x64.Build.0 = Release|Any CPU
+		{5EC6994B-0E53-4E0B-B83B-B0C64A0FF7AD}.Release|x86.ActiveCfg = Release|Any CPU
+		{5EC6994B-0E53-4E0B-B83B-B0C64A0FF7AD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
