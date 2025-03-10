@@ -1,8 +1,17 @@
+using data.Context;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+// Register DbContext
+builder.Services.AddDbContext<AppDbContext>(option =>
+{
+    option.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
+});
 
 var app = builder.Build();
 
@@ -21,7 +30,7 @@ var summaries = new[]
 
 app.MapGet("/weatherforecast", () =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
+    var forecast = Enumerable.Range(1, 5).Select(index =>
         new WeatherForecast
         (
             DateOnly.FromDateTime(DateTime.Now.AddDays(index)),

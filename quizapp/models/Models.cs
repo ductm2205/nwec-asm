@@ -1,6 +1,6 @@
 ﻿namespace models;
 
-public class Class1
+public class Models
 {
 
 }
