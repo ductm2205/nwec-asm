@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\business\business.csproj" />
     <ProjectReference Include="..\core\core.csproj" />
     <ProjectReference Include="..\data\data.csproj" />
   </ItemGroup>

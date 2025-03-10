@@ -10,9 +10,14 @@ public class BaseItemRepo<T>(AppDbContext context) : IBaseItemRepo<T> where T : 
     private readonly AppDbContext _context = context;
     private readonly DbSet<T> _set = context.Set<T>();
 
-    public void Add(T entity)
+    public bool Add(T entity)
     {
+        if (entity == null)
+        {
+            return false;
+        }
         _set.Add(entity);
+        return _context.SaveChanges() > 0;
     }
 
     public bool Delete(T entity)
@@ -23,6 +28,19 @@ public class BaseItemRepo<T>(AppDbContext context) : IBaseItemRepo<T> where T : 
         }
 
         _set.Remove(entity);
+
+        return _context.SaveChanges() > 0;
+    }
+
+    public bool Delete(Guid Id)
+    {
+        var target = GetById(Id);
+        if (target == null)
+        {
+            return false;
+        }
+
+        _set.Remove(target);
 
         return _context.SaveChanges() > 0;
     }
@@ -61,6 +79,16 @@ public class BaseItemRepo<T>(AppDbContext context) : IBaseItemRepo<T> where T : 
     public async Task<IEnumerable<T>> GetAllAsync()
     {
         return await _set.AsQueryable().ToListAsync();
+    }
+
+    public T? GetById(Guid Id)
+    {
+        return _set.Find(Id);
+    }
+
+    public async Task<T?> GetByIdAsync(Guid Id)
+    {
+        return await _set.FindAsync(Id);
     }
 
     public IQueryable<T> GetQuery()

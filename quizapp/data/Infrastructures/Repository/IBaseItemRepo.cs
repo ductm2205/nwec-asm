@@ -7,8 +7,11 @@ public interface IBaseItemRepo<T> where T : class, IBaseItem
 {
     IEnumerable<T> GetAll();
     Task<IEnumerable<T>> GetAllAsync();
-    void Add(T entity);
+    T? GetById(Guid Id);
+    Task<T?> GetByIdAsync(Guid Id);
+    bool Add(T entity);
     bool Update(T entity);
+    bool Delete(Guid Id);
     bool Delete(T entity);
     IQueryable<T> GetQuery();
     IQueryable<T> GetQuery(Expression<Func<T, bool>> predicate);
