@@ -1,3 +1,4 @@
+using business;
 using data.Context;
 using data.Infrastructures;
 using data.Infrastructures.Repository;
@@ -20,6 +21,13 @@ builder.Services.AddDbContext<AppDbContext>(option =>
 builder.Services.AddScoped(typeof(IBaseItemRepo<>), typeof(BaseItemRepo<>));
 builder.Services.AddScoped(typeof(IBaseEntityRepo<>), typeof(BaseEntityRepo<>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+// Register mediater
+builder.Services.AddMediatR(
+    config => config.RegisterServicesFromAssembly(typeof(Business).Assembly)
+);
+
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
