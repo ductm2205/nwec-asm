@@ -1,6 +1,3 @@
-using System;
-using System.ComponentModel.DataAnnotations;
-
 namespace business.Commands.Users;
 
 public class UpdateCommand : CreateCommand, IHasIdCommand<bool>

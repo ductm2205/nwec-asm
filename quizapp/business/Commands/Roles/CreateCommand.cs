@@ -1,5 +1,3 @@
-using System;
-
 namespace business.Commands.Roles;
 
 public class CreateCommand : BaseCommand<bool>

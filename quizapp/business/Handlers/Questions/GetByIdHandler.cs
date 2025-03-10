@@ -1,4 +1,3 @@
-using System;
 using business.Commands;
 using core.Exceptions;
 using core.Models.Responses;
@@ -6,12 +5,8 @@ using data.Infrastructures;
 
 namespace business.Handlers.Questions;
 
-public class GetByIdHandler : BaseHandler<GetByIdCommand<QuestionResponse>, QuestionResponse>
+public class GetByIdHandler(IUnitOfWork unitOfWork) : BaseHandler<GetByIdCommand<QuestionResponse>, QuestionResponse>(unitOfWork)
 {
-    public GetByIdHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
-    {
-    }
-
     protected override async Task<QuestionResponse> HandleCommand(GetByIdCommand<QuestionResponse> request, CancellationToken cancellationToken)
     {
         var ques = await _unitOfWork.QuestionRepo.GetByIdAsync(request.Id) ?? throw new EntityNotFoundException();

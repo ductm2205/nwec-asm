@@ -1,18 +1,12 @@
-using System;
 using business.Commands;
 using core.Exceptions;
 using core.Models.Responses;
 using data.Infrastructures;
-using models.Common;
 
 namespace business.Handlers.Quizzes;
 
-public class GetByIdHandler : BaseHandler<GetByIdCommand<QuizResponse>, QuizResponse>
+public class GetByIdHandler(IUnitOfWork unitOfWork) : BaseHandler<GetByIdCommand<QuizResponse>, QuizResponse>(unitOfWork)
 {
-    public GetByIdHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
-    {
-    }
-
     protected override async Task<QuizResponse> HandleCommand(GetByIdCommand<QuizResponse> request, CancellationToken cancellationToken)
     {
         var quiz = await _unitOfWork.QuizRepo.GetByIdAsync(request.Id) ?? throw new EntityNotFoundException();

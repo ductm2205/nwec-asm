@@ -1,15 +1,10 @@
-using System;
 using business.Commands;
 using data.Infrastructures;
 
 namespace business.Handlers.Questions;
 
-public class DeleteHandler : BaseHandler<DeleteCommand, bool>
+public class DeleteHandler(IUnitOfWork unitOfWork) : BaseHandler<DeleteCommand, bool>(unitOfWork)
 {
-    public DeleteHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
-    {
-    }
-
     protected override async Task<bool> HandleCommand(DeleteCommand request, CancellationToken cancellationToken)
     {
         var ques = await _unitOfWork.QuestionRepo.GetByIdAsync(request.Id);

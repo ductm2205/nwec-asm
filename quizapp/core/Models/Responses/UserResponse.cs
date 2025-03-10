@@ -1,6 +1,3 @@
-using System;
-using System.ComponentModel.DataAnnotations;
-
 namespace core.Models.Responses;
 
 public class UserResponse : IResponse

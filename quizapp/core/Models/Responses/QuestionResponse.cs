@@ -1,4 +1,3 @@
-using System;
 using models.Common;
 
 namespace core.Models.Responses;

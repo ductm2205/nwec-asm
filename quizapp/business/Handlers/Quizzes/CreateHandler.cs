@@ -1,16 +1,11 @@
-using System;
 using business.Commands.Quizzes;
 using data.Infrastructures;
 using models.Common;
 
 namespace business.Handlers.Quizzes;
 
-public class CreateHandler : BaseHandler<CreateCommand, bool>
+public class CreateHandler(IUnitOfWork unitOfWork) : BaseHandler<CreateCommand, bool>(unitOfWork)
 {
-    public CreateHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
-    {
-    }
-
     protected override async Task<bool> HandleCommand(CreateCommand request, CancellationToken cancellationToken)
     {
         var newQuiz = new Quiz

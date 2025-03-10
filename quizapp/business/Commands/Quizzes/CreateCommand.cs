@@ -1,5 +1,3 @@
-using System;
-
 namespace business.Commands.Quizzes;
 
 public class CreateCommand : BaseCommand<bool>

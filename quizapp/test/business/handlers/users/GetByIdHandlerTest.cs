@@ -1,14 +1,10 @@
 using business.Commands;
-using business.Commands.Users;
 using business.Handlers.Users;
 using core.Exceptions;
 using core.Models.Responses;
 using data.Infrastructures;
 using models.Auth;
 using Moq;
-using NUnit.Framework;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace test.business.handlers.users;
 

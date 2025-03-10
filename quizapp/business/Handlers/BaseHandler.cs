@@ -1,18 +1,12 @@
-using System;
 using business.Commands;
 using data.Infrastructures;
 using MediatR;
 
 namespace business.Handlers;
 
-public abstract class BaseHandler<TCommand, TResponse> : IRequestHandler<TCommand, TResponse> where TCommand : BaseCommand<TResponse>
+public abstract class BaseHandler<TCommand, TResponse>(IUnitOfWork unitOfWork) : IRequestHandler<TCommand, TResponse> where TCommand : BaseCommand<TResponse>
 {
-    protected readonly IUnitOfWork _unitOfWork;
-
-    public BaseHandler(IUnitOfWork unitOfWork)
-    {
-        _unitOfWork = unitOfWork;
-    }
+    protected readonly IUnitOfWork _unitOfWork = unitOfWork;
 
     public async Task<TResponse> Handle(TCommand request, CancellationToken cancellationToken)
     {

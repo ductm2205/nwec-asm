@@ -1,4 +1,3 @@
-using System;
 using business.Commands.Users;
 using data.Infrastructures;
 using models.Auth;

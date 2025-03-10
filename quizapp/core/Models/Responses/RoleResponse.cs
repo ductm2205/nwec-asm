@@ -1,5 +1,3 @@
-using System;
-
 namespace core.Models.Responses;
 
 public class RoleResponse : IResponse

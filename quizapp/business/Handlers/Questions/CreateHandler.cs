@@ -1,4 +1,3 @@
-using System;
 using business.Commands.Questions;
 using core.Exceptions;
 using data.Infrastructures;
@@ -6,12 +5,8 @@ using models.Common;
 
 namespace business.Handlers.Questions;
 
-public class CreateHandler : BaseHandler<CreateCommand, bool>
+public class CreateHandler(IUnitOfWork unitOfWork) : BaseHandler<CreateCommand, bool>(unitOfWork)
 {
-    public CreateHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
-    {
-    }
-
     protected override async Task<bool> HandleCommand(CreateCommand request, CancellationToken cancellationToken)
     {
         var quiz = await _unitOfWork.QuizRepo.GetByIdAsync(request.QuizId) ?? throw new EntityNotFoundException();

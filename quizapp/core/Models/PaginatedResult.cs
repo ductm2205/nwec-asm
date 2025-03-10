@@ -1,5 +1,3 @@
-using System;
-
 namespace core.Models;
 
 public class PaginatedResult<T>

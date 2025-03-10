@@ -1,5 +1,3 @@
-using System;
-
 namespace business.Commands;
 
 public class DeleteCommand : BaseCommand<bool>, IHasIdCommand<bool>

@@ -1,18 +1,12 @@
-using System;
 using business.Commands;
 using core.Models;
 using core.Models.Responses;
 using data.Infrastructures;
-using models.Common;
 
 namespace business.Handlers.Questions;
 
-public class GetAllHandler : BaseHandler<GetAllCommand<QuestionResponse>, PaginatedResult<QuestionResponse>>
+public class GetAllHandler(IUnitOfWork unitOfWork) : BaseHandler<GetAllCommand<QuestionResponse>, PaginatedResult<QuestionResponse>>(unitOfWork)
 {
-    public GetAllHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
-    {
-    }
-
     protected override async Task<PaginatedResult<QuestionResponse>> HandleCommand(GetAllCommand<QuestionResponse> request, CancellationToken cancellationToken)
     {
         var questions = await _unitOfWork.QuestionRepo.GetAllAsync();

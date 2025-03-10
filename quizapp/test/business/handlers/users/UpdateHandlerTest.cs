@@ -4,10 +4,6 @@ using core.Exceptions;
 using data.Infrastructures;
 using models.Auth;
 using Moq;
-using NUnit.Framework;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace test.business.handlers.users;
 
