@@ -1,16 +1,11 @@
-using System;
 using business.Commands.Questions;
 using core.Exceptions;
 using data.Infrastructures;
 
 namespace business.Handlers.Questions;
 
-public class UpdateHandler : BaseHandler<UpdateCommand, bool>
+public class UpdateHandler(IUnitOfWork unitOfWork) : BaseHandler<UpdateCommand, bool>(unitOfWork)
 {
-    public UpdateHandler(IUnitOfWork unitOfWork) : base(unitOfWork)
-    {
-    }
-
     protected override async Task<bool> HandleCommand(UpdateCommand request, CancellationToken cancellationToken)
     {
         var quiz = await _unitOfWork.QuizRepo.GetByIdAsync(request.QuizId) ?? throw new EntityNotFoundException();
