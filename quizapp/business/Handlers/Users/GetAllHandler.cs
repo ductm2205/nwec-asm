@@ -1,14 +1,14 @@
 using System;
-using business.Commands.Users;
+using business.Commands;
 using core.Models;
 using core.Models.Responses;
 using data.Infrastructures;
 
 namespace business.Handlers.Users;
 
-public class GetAllHandler(IUnitOfWork unitOfWork) : BaseHandler<GetAllCommand, PaginatedResult<UserResponse>>(unitOfWork)
+public class GetAllHandler(IUnitOfWork unitOfWork) : BaseHandler<GetAllCommand<UserResponse>, PaginatedResult<UserResponse>>(unitOfWork)
 {
-    protected override async Task<PaginatedResult<UserResponse>> HandleCommand(GetAllCommand request, CancellationToken cancellationToken)
+    protected override async Task<PaginatedResult<UserResponse>> HandleCommand(GetAllCommand<UserResponse> request, CancellationToken cancellationToken)
     {
         var users = await _unitOfWork.UserRepo.GetAllAsync();
 

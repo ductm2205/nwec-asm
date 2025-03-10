@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace core.Models.Responses;
 
-public class UserResponse
+public class UserResponse : IResponse
 {
     public Guid Id { get; set; }
     public required string FirstName { get; set; }

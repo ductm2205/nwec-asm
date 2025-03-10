@@ -1,6 +1,8 @@
+using business.Commands;
 using business.Commands.Users;
 using business.Handlers.Users;
 using core.Exceptions;
+using core.Models.Responses;
 using data.Infrastructures;
 using models.Auth;
 using Moq;
@@ -39,7 +41,7 @@ public class GetByIdHandlerTest
         };
         _mockUnitOfWork.Setup(uow => uow.UserRepo.GetByIdAsync(userId)).ReturnsAsync(user);
 
-        var command = new GetByIdCommand { Id = userId };
+        var command = new GetByIdCommand<UserResponse> { Id = userId };
 
         // Act
         var result = await _handler.Handle(command, CancellationToken.None);
@@ -55,7 +57,7 @@ public class GetByIdHandlerTest
         var userId = Guid.NewGuid();
         _mockUnitOfWork.Setup(uow => uow.UserRepo.GetByIdAsync(userId)).ReturnsAsync((User?)null);
 
-        var command = new GetByIdCommand { Id = userId };
+        var command = new GetByIdCommand<UserResponse> { Id = userId };
 
         Assert.ThrowsAsync<EntityNotFoundException>(async () => await _handler.Handle(command, CancellationToken.None));
         return Task.CompletedTask;

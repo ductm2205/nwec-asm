@@ -1,14 +1,14 @@
 using System;
-using business.Commands.Users;
+using business.Commands;
 using core.Exceptions;
 using core.Models.Responses;
 using data.Infrastructures;
 
 namespace business.Handlers.Users;
 
-public class GetByIdHandler(IUnitOfWork unitOfWork) : BaseHandler<GetByIdCommand, UserResponse>(unitOfWork)
+public class GetByIdHandler(IUnitOfWork unitOfWork) : BaseHandler<GetByIdCommand<UserResponse>, UserResponse>(unitOfWork)
 {
-    protected override async Task<UserResponse> HandleCommand(GetByIdCommand request, CancellationToken cancellationToken)
+    protected override async Task<UserResponse> HandleCommand(GetByIdCommand<UserResponse> request, CancellationToken cancellationToken)
     {
         var user = await _unitOfWork.UserRepo.GetByIdAsync(request.Id) ?? throw new EntityNotFoundException();
 
