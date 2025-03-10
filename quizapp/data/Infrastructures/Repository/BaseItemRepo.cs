@@ -1,47 +1,86 @@
-using System;
+using System.Linq.Expressions;
+using data.Context;
+using Microsoft.EntityFrameworkCore;
 using models.Base;
 
 namespace data.Infrastructures.Repository;
 
-public class BaseItemRepo<T> : IBaseItemRepo<T> where T : class, IBaseItem
+public class BaseItemRepo<T>(AppDbContext context) : IBaseItemRepo<T> where T : class, IBaseItem
 {
-    public int Add(T entity)
-    {
-        throw new NotImplementedException();
-    }
+    private readonly AppDbContext _context = context;
+    private readonly DbSet<T> _set = context.Set<T>();
 
-    public Task<int> AddAsync(T entity)
+    public void Add(T entity)
     {
-        throw new NotImplementedException();
+        _set.Add(entity);
     }
 
     public bool Delete(T entity)
     {
-        throw new NotImplementedException();
+        if (entity == null)
+        {
+            return false;
+        }
+
+        _set.Remove(entity);
+
+        return _context.SaveChanges() > 0;
+    }
+
+    public IQueryable<T> Get(
+        Expression<Func<T, bool>>? filter = null,
+        Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
+        string includeProperties = ""
+    )
+    {
+        var query = _set.AsQueryable<T>();
+
+        if (filter != null)
+        {
+            query = query.Where(filter);
+        }
+
+        if (orderBy != null)
+        {
+            query = orderBy(query);
+        }
+
+        if (!string.IsNullOrEmpty(includeProperties))
+        {
+            query = query.Include(includeProperties);
+        }
+
+        return query;
     }
 
     public IEnumerable<T> GetAll()
     {
-        throw new NotImplementedException();
+        return [.. _set];
     }
 
-    public Task<IEnumerable<T>> GetAllAsync()
+    public async Task<IEnumerable<T>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        return await _set.AsQueryable().ToListAsync();
+    }
+
+    public IQueryable<T> GetQuery()
+    {
+        return _set.AsQueryable<T>();
+    }
+
+    public IQueryable<T> GetQuery(Expression<Func<T, bool>> predicate)
+    {
+        return _set.AsQueryable<T>().Where(predicate);
     }
 
     public bool Update(T entity)
     {
-        throw new NotImplementedException();
-    }
-}
+        if (entity == null)
+        {
+            return false;
+        }
 
-public interface IBaseItemRepo<T> where T : class, IBaseItem
-{
-    IEnumerable<T> GetAll();
-    Task<IEnumerable<T>> GetAllAsync();
-    int Add(T entity);
-    Task<int> AddAsync(T entity);
-    bool Update(T entity);
-    bool Delete(T entity);
+        _set.Update(entity);
+        return _context.SaveChanges() > 0;
+    }
 }

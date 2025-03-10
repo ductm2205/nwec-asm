@@ -1,5 +1,3 @@
-using System;
-
 namespace models.Base;
 
 public class BaseItem : IBaseItem

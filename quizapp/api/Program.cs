@@ -1,4 +1,6 @@
 using data.Context;
+using data.Infrastructures;
+using data.Infrastructures.Repository;
 using data.Seeder;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +15,11 @@ builder.Services.AddDbContext<AppDbContext>(option =>
 {
     option.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
 });
+
+// Register UnitOfWork
+builder.Services.AddScoped(typeof(IBaseItemRepo<>), typeof(BaseItemRepo<>));
+builder.Services.AddScoped(typeof(IBaseEntityRepo<>), typeof(BaseEntityRepo<>));
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 

@@ -1,5 +1,3 @@
-using System;
-
 namespace models.Base;
 
 public interface IHasIsActive
