@@ -11,4 +11,5 @@ public class CreateCommand : BaseCommand<bool>
     public required int Duration { get; set; }
 
     public string? ThumbnailUrl { get; set; }
+    public bool IsActive { get; set; } = true;
 }
