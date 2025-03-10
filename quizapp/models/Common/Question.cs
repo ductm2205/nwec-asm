@@ -5,7 +5,7 @@ using models.Base;
 
 namespace models.Common;
 
-[Table("questions", Schema = "common")]
+[Table("Questions", Schema = "common")]
 public class Question : BaseEntity
 {
     [Required]

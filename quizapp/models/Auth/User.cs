@@ -1,0 +1,36 @@
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Identity;
+using models.Base;
+using models.Relationship;
+
+namespace models.Auth;
+
+[Table("users", Schema = "auth")]
+public class User : IdentityUser<Guid>, IHasIsActive, IBaseItem
+{
+    [Required]
+    [StringLength(50, MinimumLength = 3)]
+    public required string FirstName { get; set; }
+
+    [Required]
+    [StringLength(50, MinimumLength = 3)]
+    public required string LastName { get; set; }
+
+    [NotMapped]
+    public string DisplayName => FirstName + " " + LastName;
+    public DateTime DateOfBirth { get; set; }
+    public string? Avatar { get; set; }
+
+    [Required]
+    public required bool IsActive { get; set; } = true;
+
+    public DateTime CreatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
+    public DateTime DeletedAt { get; set; }
+    public bool IsDeleted { get; set; } = false;
+
+
+    public ICollection<UserQuiz> UserQuizzes { get; set; } = [];
+}

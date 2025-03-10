@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using data.Context;
 
@@ -11,9 +12,11 @@ using data.Context;
 namespace data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250310090303_CreateModelBaseItem")]
+    partial class CreateModelBaseItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -464,86 +467,6 @@ namespace data.Migrations
                     b.ToTable("Quizzes", "common");
                 });
 
-            modelBuilder.Entity("models.Relationship.UserAnswer", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AnswerId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsCorrect")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid>("QuestionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("UserQuizId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserQuizId")
-                        .IsUnique();
-
-                    b.ToTable("UserAnswers", "common");
-                });
-
-            modelBuilder.Entity("models.Relationship.UserQuiz", b =>
-                {
-                    b.Property<Guid>("QuizCode")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("FinishedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid>("QuizId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("StartedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("QuizCode");
-
-                    b.HasIndex("QuizId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserQuizzes", "common");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -617,39 +540,6 @@ namespace data.Migrations
                     b.Navigation("Quiz");
                 });
 
-            modelBuilder.Entity("models.Relationship.UserAnswer", b =>
-                {
-                    b.HasOne("models.Relationship.UserQuiz", null)
-                        .WithOne("UserAnswer")
-                        .HasForeignKey("models.Relationship.UserAnswer", "UserQuizId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("models.Relationship.UserQuiz", b =>
-                {
-                    b.HasOne("models.Common.Quiz", "Quiz")
-                        .WithMany("UserQuizzes")
-                        .HasForeignKey("QuizId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("models.Auth.User", "User")
-                        .WithMany("UserQuizzes")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Quiz");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("models.Auth.User", b =>
-                {
-                    b.Navigation("UserQuizzes");
-                });
-
             modelBuilder.Entity("models.Common.Question", b =>
                 {
                     b.Navigation("Answers");
@@ -658,13 +548,6 @@ namespace data.Migrations
             modelBuilder.Entity("models.Common.Quiz", b =>
                 {
                     b.Navigation("Questions");
-
-                    b.Navigation("UserQuizzes");
-                });
-
-            modelBuilder.Entity("models.Relationship.UserQuiz", b =>
-                {
-                    b.Navigation("UserAnswer");
                 });
 #pragma warning restore 612, 618
         }

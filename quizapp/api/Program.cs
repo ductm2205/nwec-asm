@@ -1,4 +1,5 @@
 using data.Context;
+using data.Seeder;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,19 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+
+    // seed data
+    using var scope = app.Services.CreateScope();
+    var services = scope.ServiceProvider;
+
+    try
+    {
+        DatabaseSeeder.Seed(services);
+    }
+    catch (Exception ex)
+    {
+        System.Console.WriteLine("Exception: " + ex.Message);
+    }
 }
 
 app.UseHttpsRedirection();

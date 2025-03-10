@@ -2,10 +2,11 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using models.Base;
+using models.Relationship;
 
 namespace models.Common;
 
-[Table("quizzes", Schema = "common")]
+[Table("Quizzes", Schema = "common")]
 public class Quiz : BaseEntity
 {
     [Required]
@@ -23,4 +24,5 @@ public class Quiz : BaseEntity
     public string? ThumbnailUrl { get; set; }
 
     public ICollection<Question>? Questions { get; set; } = [];
+    public ICollection<UserQuiz>? UserQuizzes { get; set; } = [];
 }
