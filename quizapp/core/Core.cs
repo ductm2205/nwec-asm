@@ -1,6 +1,6 @@
 ﻿namespace core;
 
-public class Class1
+public class Core
 {
 
 }
