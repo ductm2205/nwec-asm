@@ -1,4 +1,6 @@
+using business.Commands;
 using business.Handlers.Users;
+using core.Models.Responses;
 using data.Infrastructures;
 using models.Auth;
 using Moq;
@@ -42,7 +44,7 @@ public class GetAllHandlerTest
 
         _mockUnitOfWork.Setup(uow => uow.UserRepo.GetAllAsync()).ReturnsAsync(users);
 
-        var command = new GetAllCommand();
+        var command = new GetAllCommand<UserResponse>();
 
         var result = await _handler.Handle(command, CancellationToken.None);
 
