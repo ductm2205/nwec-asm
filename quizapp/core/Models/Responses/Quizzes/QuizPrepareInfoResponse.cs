@@ -1,6 +1,8 @@
-namespace core.Models.Responses;
+using System;
 
-public class QuizResponse : IResponse
+namespace core.Models.Responses.Quizzes;
+
+public class QuizPrepareInfoResponse : IResponse
 {
     public Guid Id { get; set; }
     public required string Title { get; set; }
@@ -11,7 +13,7 @@ public class QuizResponse : IResponse
 
     public string? ThumbnailUrl { get; set; }
 
-    public bool IsActive { get; set; } = true;
-    public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
+    public required string QuizCode { get; set; }
+
+    public UserResponse? User { get; set; }
 }

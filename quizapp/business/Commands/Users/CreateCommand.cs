@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace business.Commands.Users;
 
@@ -29,4 +30,5 @@ public class CreateCommand : BaseCommand<bool>
     [DataType(DataType.Date)]
     [Display(Name = "Date of Birth")]
     public DateTime DateOfBirth { get; set; }
+    public ICollection<IdentityUserRole<Guid>> Roles { get; set; } = [];
 }

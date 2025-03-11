@@ -15,7 +15,10 @@ public class GetByIdHandler(IUnitOfWork unitOfWork) : BaseHandler<GetByIdCommand
         {
             FirstName = user.FirstName,
             LastName = user.LastName,
+            DisplayName = user.DisplayName,
             Email = user.Email!,
+            UserName = user.UserName!,
+            PhoneNumber = user.PhoneNumber!,
             IsActive = user.IsActive,
             DateOfBirth = user.DateOfBirth,
         };

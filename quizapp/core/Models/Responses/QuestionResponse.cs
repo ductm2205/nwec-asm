@@ -9,6 +9,8 @@ public class QuestionResponse : IResponse
 
     public required QuestionType QuestionType { get; set; }
 
+    public List<AnswerResponse> Answers { get; set; } = [];
+
     public Guid QuizId { get; set; }
     public bool IsActive { get; set; }
     public DateTime CreatedAt { get; set; }

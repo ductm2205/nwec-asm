@@ -8,7 +8,7 @@ namespace models.Relationship;
 [Table("UserQuizzes", Schema = "common")]
 public class UserQuiz : BaseItem
 {
-    public Guid QuizCode { get; set; }
+    public required Guid QuizCode { get; set; }
 
     public Guid UserId { get; set; }
 
@@ -20,6 +20,6 @@ public class UserQuiz : BaseItem
     public DateTime StartedAt { get; set; }
     public DateTime FinishedAt { get; set; }
 
-    public UserAnswer? UserAnswer { get; set; }
+    public List<UserAnswer>? UserAnswers { get; set; }
 
 }
