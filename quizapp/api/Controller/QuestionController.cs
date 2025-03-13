@@ -2,8 +2,9 @@ using System.Net;
 using System.Threading.Tasks;
 using business.Commands;
 using business.Commands.Questions;
+using core.Exceptions;
 using core.Models;
-using core.Models.Requests;
+using core.Models.Requests.Questions;
 using core.Models.Responses;
 using data.Infrastructures;
 using MediatR;
@@ -89,5 +90,56 @@ public class QuestionController(IMediator mediator, ILogger<QuestionController> 
         }
 
         return res ? StatusCode(StatusCodes.Status201Created, true) : BadRequest(false);
+    }
+
+    [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdateQuestionWithAnswer(Guid id, [FromBody] QuestionRequest questionEditViewModel)
+    {
+        _logger.LogInformation("Updating question with Id: {Id}", id);
+
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        var command = new UpdateCommand
+        {
+            Id = id,
+            Content = questionEditViewModel.Content,
+            QuestionType = questionEditViewModel.QuestionType,
+            IsActive = questionEditViewModel.IsActive,
+            QuizId = questionEditViewModel.QuizId,
+            Answers = [.. questionEditViewModel.Answers.Select(
+                a => new Answer
+                {
+                    Id = a.Id,
+                    Content = a.Content,
+                    IsCorrect = a.IsCorrect,
+                    IsActive = a.IsActive,
+                }
+            )],
+        };
+
+        try
+        {
+            var result = await _mediator.Send(command);
+
+            if (!result)
+            {
+                _logger.LogError("Failed to update question with Id: {Id}", id);
+                return BadRequest(false);
+            }
+
+            _logger.LogInformation("Question updated successfully with ID: {Id}", id);
+            return Ok(true);
+        }
+        catch (EntityNotFoundException ex)
+        {
+            _logger.LogError(ex, "Question with Id: {Id} not found", id);
+            return NotFound(false);
+        }
     }
 }

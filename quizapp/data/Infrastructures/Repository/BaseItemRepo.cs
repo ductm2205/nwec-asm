@@ -8,7 +8,6 @@ namespace data.Infrastructures.Repository;
 
 public class BaseItemRepo<T>(AppDbContext context) : IBaseItemRepo<T> where T : class, IBaseItem
 {
-    private readonly AppDbContext _context = context;
     private readonly DbSet<T> _set = context.Set<T>();
 
     public bool Add(T entity)

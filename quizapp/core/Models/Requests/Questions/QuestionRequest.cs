@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using core.Models.Requests.Answers;
 using models.Common;
 
-namespace core.Models.Requests;
+namespace core.Models.Requests.Questions;
 
 public class QuestionRequest : IRequest
 {
