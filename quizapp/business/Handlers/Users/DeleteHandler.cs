@@ -1,11 +1,12 @@
 using business.Commands;
+using business.Commands.Users;
 using data.Infrastructures;
 
 namespace business.Handlers.Users;
 
-public class DeleteHandler(IUnitOfWork unitOfWork) : BaseHandler<DeleteCommand, bool>(unitOfWork)
+public class DeleteHandler(IUnitOfWork unitOfWork) : BaseHandler<UserDeleteCommand, bool>(unitOfWork)
 {
-    protected override async Task<bool> HandleCommand(DeleteCommand request, CancellationToken cancellationToken)
+    protected override async Task<bool> HandleCommand(UserDeleteCommand request, CancellationToken cancellationToken)
     {
         var user = await _unitOfWork.UserRepo.GetByIdAsync(request.Id);
         if (user == null) return false;
