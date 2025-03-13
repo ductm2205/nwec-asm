@@ -1,5 +1,3 @@
-using System;
-using AutoMapper.Configuration.Annotations;
 using business.Commands.Quizzes;
 using core.Exceptions;
 using core.Models.Responses;

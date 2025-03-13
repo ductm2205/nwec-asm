@@ -1,5 +1,3 @@
-using System;
-
 namespace core.Constants;
 
 public class RoleConst

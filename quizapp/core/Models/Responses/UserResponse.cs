@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Identity;
-using models.Auth;
 
 namespace core.Models.Responses;
 

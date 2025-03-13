@@ -1,5 +1,3 @@
-using System;
-
 namespace core.Models.Responses.UserAnswers;
 
 public class UserAnswerResponse : IResponse

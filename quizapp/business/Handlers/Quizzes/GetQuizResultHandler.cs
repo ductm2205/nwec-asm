@@ -1,9 +1,7 @@
-using System;
 using business.Commands.Quizzes;
 using core.Exceptions;
 using core.Models.Responses.Quizzes;
 using data.Infrastructures;
-using Microsoft.EntityFrameworkCore;
 
 namespace business.Handlers.Quizzes;
 

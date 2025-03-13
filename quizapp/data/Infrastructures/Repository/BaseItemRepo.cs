@@ -1,7 +1,6 @@
 using System.Linq.Expressions;
 using data.Context;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using models.Base;
 
 namespace data.Infrastructures.Repository;
