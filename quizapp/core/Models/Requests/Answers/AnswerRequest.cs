@@ -5,6 +5,7 @@ namespace core.Models.Requests.Answers;
 
 public class AnswerRequest : IRequest
 {
+    public Guid Id { get; set; }
     [Required]
     public string Content { get; set; } = string.Empty;
 
