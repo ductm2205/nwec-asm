@@ -10,4 +10,6 @@ public class CreateCommand : BaseCommand<bool>
 
     public Guid QuizId { get; set; }
     public bool IsActive { get; set; }
+
+    public ICollection<Answer>? Answers { get; set; }
 }
