@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using business.Commands;
+using core.Models;
 using core.Models.Responses;
 using data.Infrastructures;
 using MediatR;
@@ -25,6 +26,18 @@ public class QuestionController(IMediator mediator, ILogger<QuestionController> 
         var query = new GetByIdCommand<QuestionResponse> { Id = id };
         var res = await _mediator.Send(query);
         _logger.LogInformation("Search result: {Res}", res.ToString());
+        return Ok(res);
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<PaginatedResult<QuestionResponse>>> GetAll()
+    {
+        _logger.LogInformation("Getting all questions");
+        var query = new GetAllCommand<QuestionResponse>();
+
+        var res = await _mediator.Send(query);
+        _logger.LogInformation("Done fetching!");
+
         return Ok(res);
     }
 }
