@@ -16,6 +16,6 @@ public class QuizForTestResponse : IResponse
 
     public required int Duration { get; set; }
 
-    public List<QuestionResponse> Questions { get; set; } = [];
+    public IEnumerable<QuestionResponse> Questions { get; set; } = [];
 
 }
