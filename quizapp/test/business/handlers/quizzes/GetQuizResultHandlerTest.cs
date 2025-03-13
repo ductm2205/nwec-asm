@@ -5,7 +5,6 @@ using data.Infrastructures;
 using models.Common;
 using models.Relationship;
 using Moq;
-using NUnit.Framework;
 
 namespace test.business.handlers.quizzes;
 

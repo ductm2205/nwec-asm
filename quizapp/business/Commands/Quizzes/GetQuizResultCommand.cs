@@ -1,4 +1,3 @@
-using System;
 using core.Models.Responses.Quizzes;
 
 namespace business.Commands.Quizzes;

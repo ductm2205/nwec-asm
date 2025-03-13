@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 using core.Models.Requests.Answers;
 using models.Common;

@@ -10,42 +10,42 @@ namespace data.Context;
 public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbContext(options)
 {
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder builder)
     {
-        base.OnModelCreating(modelBuilder);
+        base.OnModelCreating(builder);
 
-        modelBuilder.Entity<Quiz>(
+        builder.Entity<Quiz>(
             quiz => quiz.HasMany(quiz => quiz.Questions)
             .WithOne(question => question.Quiz)
             .HasForeignKey(question => question.QuizId)
         );
 
-        modelBuilder.Entity<Question>(
+        builder.Entity<Question>(
             question => question.HasMany(q => q.Answers)
             .WithOne(ans => ans.Question)
             .HasForeignKey(ans => ans.QuestionId)
         );
 
         // users & roles
-        modelBuilder.Entity<User>().ToTable("Users", "auth");
-        modelBuilder.Entity<Role>().ToTable("Roles", "auth");
-        modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("UserClaims", "auth");
-        modelBuilder.Entity<IdentityUserRole<string>>().ToTable("UserRoles", "auth");
-        modelBuilder.Entity<IdentityUserLogin<string>>().ToTable("UserLogins", "auth");
-        modelBuilder.Entity<IdentityRoleClaim<string>>().ToTable("RoleClaims", "auth");
-        modelBuilder.Entity<IdentityUserToken<string>>().ToTable("UserTokens", "auth");
+        builder.Entity<User>().ToTable("Users", "auth");
+        builder.Entity<Role>().ToTable("Roles", "auth");
+        builder.Entity<IdentityUserClaim<string>>().ToTable("UserClaims", "auth");
+        builder.Entity<IdentityUserRole<string>>().ToTable("UserRoles", "auth");
+        builder.Entity<IdentityUserLogin<string>>().ToTable("UserLogins", "auth");
+        builder.Entity<IdentityRoleClaim<string>>().ToTable("RoleClaims", "auth");
+        builder.Entity<IdentityUserToken<string>>().ToTable("UserTokens", "auth");
 
         // user quiz
-        modelBuilder.Entity<UserQuiz>().HasKey(uq => uq.QuizCode);
+        builder.Entity<UserQuiz>().HasKey(uq => uq.QuizCode);
 
         // user quiz -> user
-        modelBuilder.Entity<UserQuiz>()
+        builder.Entity<UserQuiz>()
         .HasOne(uq => uq.User)
         .WithMany(u => u.UserQuizzes)
         .HasForeignKey(uq => uq.UserId);
 
         // user quiz -> quiz
-        modelBuilder.Entity<UserQuiz>()
+        builder.Entity<UserQuiz>()
         .HasOne(uq => uq.Quiz)
         .WithMany(q => q.UserQuizzes)
         .HasForeignKey(uq => uq.QuizId);

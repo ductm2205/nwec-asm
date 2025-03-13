@@ -1,5 +1,3 @@
-using System;
-
 namespace core.Models.Responses.Quizzes;
 
 public class QuizForTestResponse : IResponse

@@ -1,5 +1,3 @@
-using System;
-
 namespace core.Utils;
 
 public class GenerateRandomCode

@@ -1,4 +1,3 @@
-using System;
 using business.Commands.Quizzes;
 using core.Exceptions;
 using data.Infrastructures;
