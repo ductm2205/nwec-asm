@@ -142,4 +142,32 @@ public class QuestionController(IMediator mediator, ILogger<QuestionController> 
             return NotFound(false);
         }
     }
+
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DeleteQuestion(Guid id)
+    {
+        _logger.LogInformation("Deleting question with Id: {Id}", id);
+        var query = new QuestionDeleteCommand { Id = id };
+
+        try
+        {
+            var result = await _mediator.Send(query);
+
+            if (!result)
+            {
+                _logger.LogError("Failed to delete question with Id: {Id}", id);
+                return BadRequest(false);
+            }
+
+            _logger.LogInformation("Question deleted successfully with ID: {Id}", id);
+            return Ok(true);
+        }
+        catch (EntityNotFoundException ex)
+        {
+            _logger.LogError(ex, "Question with Id: {Id} not found", id);
+            return NotFound(false);
+        }
+    }
 }
