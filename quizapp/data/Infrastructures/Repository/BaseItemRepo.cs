@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
 using data.Context;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using models.Base;
 
 namespace data.Infrastructures.Repository;
@@ -17,7 +18,7 @@ public class BaseItemRepo<T>(AppDbContext context) : IBaseItemRepo<T> where T : 
             return false;
         }
         _set.Add(entity);
-        return _context.SaveChanges() > 0;
+        return true;
     }
 
     public bool Delete(T entity)
@@ -29,7 +30,7 @@ public class BaseItemRepo<T>(AppDbContext context) : IBaseItemRepo<T> where T : 
 
         _set.Remove(entity);
 
-        return _context.SaveChanges() > 0;
+        return true;
     }
 
     public bool Delete(Guid Id)
@@ -42,7 +43,7 @@ public class BaseItemRepo<T>(AppDbContext context) : IBaseItemRepo<T> where T : 
 
         _set.Remove(target);
 
-        return _context.SaveChanges() > 0;
+        return true;
     }
 
     public IQueryable<T> Get(
@@ -109,6 +110,6 @@ public class BaseItemRepo<T>(AppDbContext context) : IBaseItemRepo<T> where T : 
         }
 
         _set.Update(entity);
-        return _context.SaveChanges() > 0;
+        return true;
     }
 }
