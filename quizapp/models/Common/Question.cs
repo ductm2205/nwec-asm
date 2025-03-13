@@ -17,9 +17,9 @@ public class Question : BaseEntity
 
 
     public Guid QuizId { get; set; }
-    public Quiz Quiz { get; set; }
+    public Quiz? Quiz { get; set; }
 
-    public ICollection<Answer> Answers { get; set; } = [];
+    public ICollection<Answer>? Answers { get; set; }
 }
 
 public enum QuestionType
