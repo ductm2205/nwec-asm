@@ -83,7 +83,7 @@ public class UnitOfWork(AppDbContext context) : IUnitOfWork
     }
 
 
-    public void Dispose(bool isDisposing)
+    protected virtual void Dispose(bool isDisposing)
     {
         if (!_disposed)
         {

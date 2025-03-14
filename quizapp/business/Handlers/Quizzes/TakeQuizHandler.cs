@@ -40,7 +40,7 @@ public class TakeQuizHandler : BaseHandler<TakeQuizCommand, QuizForTestResponse>
                     Id = ques.Id,
                     Content = ques.Content,
                     QuestionType = ques.QuestionType,
-                    Answers = [.. ques.Answers.Select(
+                    Answers = [.. ques.Answers!.Select(
                         ans => new AnswerResponse
                         {
                             Id = ans.Id,

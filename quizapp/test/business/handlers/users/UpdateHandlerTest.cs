@@ -10,8 +10,8 @@ namespace test.business.handlers.users;
 [TestFixture]
 public class UpdateHandlerTest
 {
-    private Mock<IUnitOfWork> _mockUnitOfWork;
-    private UpdateHandler _handler;
+    public required Mock<IUnitOfWork> _mockUnitOfWork;
+    public required UpdateHandler _handler;
 
     [SetUp]
     public void Setup()

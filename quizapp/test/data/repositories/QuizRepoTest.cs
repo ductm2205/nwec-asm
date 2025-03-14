@@ -8,8 +8,8 @@ namespace test.data.repositories;
 [TestFixture]
 public class QuizRepoTest
 {
-    private AppDbContext _context;
-    private QuizRepo _quizRepo;
+    public required AppDbContext _context;
+    public required QuizRepo _quizRepo;
 
     [SetUp]
     public void Setup()
