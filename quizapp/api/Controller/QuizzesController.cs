@@ -82,4 +82,18 @@ public class QuizzesController : ControllerBase
 
         return Ok(res);
     }
+
+    [HttpDelete("{id}")]
+    [ProducesResponseType<bool>(StatusCodes.Status200OK)]
+    [ProducesResponseType<bool>(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType<bool>(StatusCodes.Status403Forbidden)]
+    public async Task<IActionResult> DeleteQuiz(Guid id)
+    {
+        _logger.LogInformation("Deleting quiz with id: {Id}", id);
+        var query = new QuizDeleteCommand { Id = id };
+        var res = await _mediator.Send(query);
+        _logger.LogInformation("Quiz with id: {Id} deleted", id);
+
+        return Ok(res);
+    }
 }
