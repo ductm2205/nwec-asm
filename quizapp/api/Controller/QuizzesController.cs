@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using business.Commands;
+using business.Commands.Questions;
 using business.Commands.Quizzes;
 using core.Models;
 using core.Models.Requests.Quizzes;
@@ -55,7 +56,7 @@ public class QuizzesController : ControllerBase
     [ProducesResponseType<bool>(StatusCodes.Status201Created)]
     [ProducesResponseType<bool>(StatusCodes.Status400BadRequest)]
     [ProducesResponseType<bool>(StatusCodes.Status403Forbidden)]
-    public async Task<IActionResult> CreateQuiz([FromBody] CreateCommand request)
+    public async Task<IActionResult> CreateQuiz([FromBody] business.Commands.Quizzes.CreateCommand request)
     {
         _logger.LogInformation("Creating new quiz...");
 
@@ -69,7 +70,7 @@ public class QuizzesController : ControllerBase
     [ProducesResponseType<bool>(StatusCodes.Status200OK)]
     [ProducesResponseType<bool>(StatusCodes.Status400BadRequest)]
     [ProducesResponseType<bool>(StatusCodes.Status403Forbidden)]
-    public async Task<IActionResult> UpdateQuiz(Guid id, [FromBody] UpdateCommand request)
+    public async Task<IActionResult> UpdateQuiz(Guid id, [FromBody] business.Commands.Quizzes.UpdateCommand request)
     {
         _logger.LogInformation("Updating quiz with id: {Id}", id);
 
@@ -93,6 +94,21 @@ public class QuizzesController : ControllerBase
         var query = new QuizDeleteCommand { Id = id };
         var res = await _mediator.Send(query);
         _logger.LogInformation("Quiz with id: {Id} deleted", id);
+
+        return Ok(res);
+    }
+
+    [HttpPost("add-question-to-quiz")]
+    [ProducesResponseType<bool>(StatusCodes.Status201Created)]
+    [ProducesResponseType<bool>(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType<bool>(StatusCodes.Status403Forbidden)]
+    public async Task<IActionResult> AddQuestionToQuiz([FromBody] business.Commands.Questions.CreateCommand question)
+    {
+        _logger.LogInformation("Adding new question to quiz...");
+        
+        var res = await _mediator.Send(question);
+
+        _logger.LogInformation("New question added");
 
         return Ok(res);
     }

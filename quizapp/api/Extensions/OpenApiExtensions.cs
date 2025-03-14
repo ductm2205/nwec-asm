@@ -33,6 +33,9 @@ public static class OpenApiExtensions
                 {
                     options.IncludeXmlComments(xmlPath);
                 }
+
+                // avoid duplicate schemaId
+                options.CustomSchemaIds(s => s.FullName!.Replace("+", "."));
             }
         );
         // Add Api Versioning
