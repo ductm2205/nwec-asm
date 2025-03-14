@@ -65,4 +65,21 @@ public class QuizzesController : ControllerBase
         return Ok(res);
     }
 
+    [HttpPut("{id}")]
+    [ProducesResponseType<bool>(StatusCodes.Status200OK)]
+    [ProducesResponseType<bool>(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType<bool>(StatusCodes.Status403Forbidden)]
+    public async Task<IActionResult> UpdateQuiz(Guid id, [FromBody] UpdateCommand request)
+    {
+        _logger.LogInformation("Updating quiz with id: {Id}", id);
+
+        _logger.LogInformation("Setting request id to: {Id}", id);
+        request.Id = id;
+
+        var res = await _mediator.Send(request);
+
+        _logger.LogInformation("Finish updating quiz with id: {Id}", id);
+
+        return Ok(res);
+    }
 }
