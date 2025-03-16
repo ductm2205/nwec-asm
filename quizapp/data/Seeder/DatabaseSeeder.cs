@@ -5,7 +5,7 @@ using models.Common;
 
 namespace data.Seeder;
 
-public class DatabaseSeeder
+public static class DatabaseSeeder
 {
     public static void Seed(IServiceProvider serviceProvider)
     {
@@ -95,7 +95,8 @@ public class DatabaseSeeder
                     new Answer { Content = "Mars", IsCorrect = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
                     new Answer { Content = "Venus", IsCorrect = false, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
                     new Answer { Content = "Jupiter", IsCorrect = false, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow }
-                ]
+                ],
+                IsActive = false,
             },
 
             // Science & Technology Quiz Question
@@ -111,7 +112,8 @@ public class DatabaseSeeder
                     new Answer { Content = "Au", IsCorrect = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
                     new Answer { Content = "Ag", IsCorrect = false, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
                     new Answer { Content = "Fe", IsCorrect = false, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow }
-                ]
+                ],
+                                IsActive = true,
             },
 
             // Mathematics Quiz Question
@@ -127,7 +129,8 @@ public class DatabaseSeeder
                     new Answer { Content = "12", IsCorrect = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
                     new Answer { Content = "14", IsCorrect = false, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
                     new Answer { Content = "10", IsCorrect = false, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow }
-                ]
+                ],
+                                IsActive = true,
             },
 
             // History Quiz Question
@@ -143,7 +146,8 @@ public class DatabaseSeeder
                     new Answer { Content = "1945", IsCorrect = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
                     new Answer { Content = "1944", IsCorrect = false, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
                     new Answer { Content = "1946", IsCorrect = false, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow }
-                ]
+                ],
+                                IsActive = true,
             },
 
             // Programming Quiz Question
@@ -159,7 +163,8 @@ public class DatabaseSeeder
                     new Answer { Content = "JavaScript", IsCorrect = true, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
                     new Answer { Content = "Assembly", IsCorrect = false, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow },
                     new Answer { Content = "COBOL", IsCorrect = false, CreatedAt = DateTime.UtcNow, UpdatedAt = DateTime.UtcNow }
-                ]
+                ],
+                                IsActive = true,
             }
         };
 

@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <Folder Include="Extensions\" />
+    <Folder Include="Models\Requests\Auth\" />
+    <Folder Include="Models\Requests\Users\" />
   </ItemGroup>
 
   <ItemGroup>

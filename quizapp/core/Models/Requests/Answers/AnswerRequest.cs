@@ -1,0 +1,14 @@
+using System.ComponentModel.DataAnnotations;
+
+namespace core.Models.Requests.Answers;
+
+public class AnswerRequest : IRequest
+{
+    public Guid Id { get; set; }
+    [Required]
+    public string Content { get; set; } = string.Empty;
+
+    public bool IsCorrect { get; set; } = false;
+
+    public bool IsActive { get; set; } = true;
+}

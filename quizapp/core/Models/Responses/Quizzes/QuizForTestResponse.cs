@@ -1,5 +1,3 @@
-using System;
-
 namespace core.Models.Responses.Quizzes;
 
 public class QuizForTestResponse : IResponse
@@ -10,12 +8,12 @@ public class QuizForTestResponse : IResponse
 
     public string? Description { get; set; }
 
-    public required Guid QuizCode { get; set; }
+    public required string QuizCode { get; set; }
 
     public required DateTime StartTime { get; set; }
 
     public required int Duration { get; set; }
 
-    public List<QuestionResponse> Questions { get; set; } = [];
+    public IEnumerable<QuestionResponse> Questions { get; set; } = [];
 
 }

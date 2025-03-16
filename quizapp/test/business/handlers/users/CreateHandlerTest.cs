@@ -10,8 +10,8 @@ namespace test.business.handlers.users;
 [TestFixture]
 public class CreateHandlerTest
 {
-    private Mock<IUnitOfWork> _mockUnitOfWork;
-    private CreateHandler _handler;
+    private Mock<IUnitOfWork>? _mockUnitOfWork;
+    private CreateHandler? _handler;
 
     [SetUp]
     public void Setup()
@@ -37,10 +37,10 @@ public class CreateHandlerTest
         // _mockUnitOfWork.Setup(uow => uow.UserRepo.GetQuery(It.IsAny<Expression<Func<User, bool>>>()))
         // .Returns(new List<User>().AsQueryable());
 
-        _mockUnitOfWork.Setup(uow => uow.UserRepo.Add(It.IsAny<User>())).Returns(true);
+        _mockUnitOfWork!.Setup(uow => uow.UserRepo.Add(It.IsAny<User>())).Returns(true);
         _mockUnitOfWork.Setup(uow => uow.SaveChangesAsync(It.IsAny<CancellationToken>())).ReturnsAsync(1);
 
-        var result = await _handler.Handle(command, CancellationToken.None);
+        var result = await _handler!.Handle(command, CancellationToken.None);
 
         Assert.That(result, Is.True);
     }
@@ -59,7 +59,7 @@ public class CreateHandlerTest
         };
 
         // assume the list already has one user with the given email
-        _mockUnitOfWork.Setup(
+        _mockUnitOfWork!.Setup(
             uow => uow.UserRepo.GetQuery(It.IsAny<Expression<Func<User, bool>>>()))
             .Returns(
                 new List<User> {
@@ -75,7 +75,7 @@ public class CreateHandlerTest
 
         _mockUnitOfWork.Setup(uow => uow.UserRepo.Add(It.IsAny<User>())).Returns(false);
 
-        var result = await _handler.Handle(command, CancellationToken.None);
+        var result = await _handler!.Handle(command, CancellationToken.None);
 
         Assert.That(result, Is.False);
     }

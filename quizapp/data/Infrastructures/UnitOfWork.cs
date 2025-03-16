@@ -1,5 +1,6 @@
 using data.Context;
 using data.Infrastructures.Repository;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using models.Auth;
 using models.Base;
@@ -83,7 +84,7 @@ public class UnitOfWork(AppDbContext context) : IUnitOfWork
     }
 
 
-    public void Dispose(bool isDisposing)
+    protected virtual void Dispose(bool isDisposing)
     {
         if (!_disposed)
         {
@@ -118,19 +119,29 @@ public class UnitOfWork(AppDbContext context) : IUnitOfWork
 
     private void BeforeSaveChange()
     {
-        var entities = _context.ChangeTracker.Entries().Where(x => x.Entity is BaseItem && x.State == Microsoft.EntityFrameworkCore.EntityState.Added || x.State == Microsoft.EntityFrameworkCore.EntityState.Modified);
-
-        foreach (var entity in entities)
+        foreach (var entry in _context.ChangeTracker.Entries<BaseItem>())
         {
-            var baseEntity = (BaseItem)entity.Entity;
-
-            switch (entity.State)
+            switch (entry.State)
             {
-                case Microsoft.EntityFrameworkCore.EntityState.Added:
-                    baseEntity.CreatedAt = DateTime.Now;
+                case EntityState.Added:
+                    entry.Entity.CreatedAt = DateTime.UtcNow;
+                    entry.Entity.UpdatedAt = DateTime.UtcNow;
                     break;
-                case Microsoft.EntityFrameworkCore.EntityState.Modified:
-                    baseEntity.UpdatedAt = DateTime.Now;
+                case EntityState.Modified:
+                    entry.Entity.UpdatedAt = DateTime.UtcNow;
+                    break;
+            }
+        }
+        foreach (var entry in _context.ChangeTracker.Entries<Role>())
+        {
+            switch (entry.State)
+            {
+                case EntityState.Added:
+                    entry.Entity.CreatedAt = DateTime.UtcNow;
+                    entry.Entity.UpdatedAt = DateTime.UtcNow;
+                    break;
+                case EntityState.Modified:
+                    entry.Entity.UpdatedAt = DateTime.UtcNow;
                     break;
             }
         }

@@ -5,7 +5,7 @@
 namespace data.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateModelBaseItem : Migration
+    public partial class UpdateUserQuizId : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

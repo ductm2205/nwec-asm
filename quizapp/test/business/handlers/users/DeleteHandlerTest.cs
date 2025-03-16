@@ -1,4 +1,5 @@
 using business.Commands;
+using business.Commands.Users;
 using business.Handlers.Users;
 using data.Infrastructures;
 using models.Auth;
@@ -9,8 +10,8 @@ namespace test.business.handlers.users;
 [TestFixture]
 public class DeleteHandlerTest
 {
-    private Mock<IUnitOfWork> _mockUnitOfWork;
-    private DeleteHandler _handler;
+    public required Mock<IUnitOfWork> _mockUnitOfWork;
+    public required DeleteHandler _handler;
 
     [SetUp]
     public void Setup()
@@ -36,7 +37,7 @@ public class DeleteHandlerTest
         _mockUnitOfWork.Setup(uow => uow.UserRepo.GetByIdAsync(userId)).ReturnsAsync(user);
         _mockUnitOfWork.Setup(uow => uow.SaveChangesAsync(It.IsAny<CancellationToken>())).ReturnsAsync(1);
 
-        var deleteCommand = new DeleteCommand { Id = userId };
+        var deleteCommand = new UserDeleteCommand { Id = userId };
 
         var result = await _handler.Handle(deleteCommand, CancellationToken.None);
 
@@ -50,7 +51,7 @@ public class DeleteHandlerTest
 
         _mockUnitOfWork.Setup(uow => uow.UserRepo.GetByIdAsync(userId)).ReturnsAsync((User?)null);
 
-        var deleteCommand = new DeleteCommand { Id = userId };
+        var deleteCommand = new UserDeleteCommand { Id = userId };
 
         var result = await _handler.Handle(deleteCommand, CancellationToken.None);
 

@@ -16,5 +16,5 @@ public class Answer : BaseEntity
 
     public Guid QuestionId { get; set; }
 
-    public Question Question { get; set; }
+    public Question? Question { get; set; }
 }

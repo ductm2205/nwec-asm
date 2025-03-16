@@ -11,8 +11,8 @@ namespace test.business.handlers.users;
 [TestFixture]
 public class GetByIdHandlerTest
 {
-    private Mock<IUnitOfWork> _mockUnitOfWork;
-    private GetByIdHandler _handler;
+    public required Mock<IUnitOfWork> _mockUnitOfWork;
+    public required GetByIdHandler _handler;
 
     [SetUp]
     public void Setup()

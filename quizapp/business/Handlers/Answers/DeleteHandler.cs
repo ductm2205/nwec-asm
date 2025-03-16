@@ -1,11 +1,11 @@
-using business.Commands;
+using business.Commands.Answers;
 using data.Infrastructures;
 
 namespace business.Handlers.Answers;
 
-public class DeleteHandler(IUnitOfWork unitOfWork) : BaseHandler<DeleteCommand, bool>(unitOfWork)
+public class DeleteHandler(IUnitOfWork unitOfWork) : BaseHandler<AnswerDeleteCommand, bool>(unitOfWork)
 {
-    protected override async Task<bool> HandleCommand(DeleteCommand request, CancellationToken cancellationToken)
+    protected override async Task<bool> HandleCommand(AnswerDeleteCommand request, CancellationToken cancellationToken)
     {
         var ans = await _unitOfWork.AnswerRepo.GetByIdAsync(request.Id);
         if (ans == null) return false;

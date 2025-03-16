@@ -14,6 +14,7 @@ public class GetAllHandler(IUnitOfWork unitOfWork) : BaseHandler<GetAllCommand<R
         var roleResponses = roles.Select(role => new RoleResponse
         {
             Id = role.Id,
+            Name = role.Name,
             Description = role.Description,
             IsActive = role.IsActive,
             CreatedAt = role.CreatedAt,
