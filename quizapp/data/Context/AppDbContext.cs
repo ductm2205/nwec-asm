@@ -36,7 +36,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbCo
         builder.Entity<IdentityUserToken<Guid>>().ToTable("UserTokens", "auth");
 
         // user quiz
-        builder.Entity<UserQuiz>().HasKey(uq => uq.QuizCode);
+        builder.Entity<UserQuiz>().HasKey(uq => uq.Id);
 
         // user quiz -> user
         builder.Entity<UserQuiz>()

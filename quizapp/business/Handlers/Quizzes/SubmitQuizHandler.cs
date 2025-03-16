@@ -18,7 +18,7 @@ public class SubmitQuizHandler : BaseHandler<SubmitQuizCommand, bool>
         {
             var answer = new UserAnswer
             {
-                UserQuizId = userQuiz.QuizCode,
+                UserQuizId = userQuiz.Id,
                 QuestionId = userAnswer.QuestionId,
                 AnswerId = userAnswer.AnswerId,
             };

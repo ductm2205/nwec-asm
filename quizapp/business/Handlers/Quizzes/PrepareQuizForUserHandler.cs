@@ -3,6 +3,7 @@ using core.Exceptions;
 using core.Models.Responses;
 using core.Models.Responses.Quizzes;
 using data.Infrastructures;
+using models.Relationship;
 
 namespace business.Handlers.Quizzes;
 
@@ -18,16 +19,33 @@ public class PrepareQuizForUserHandler : BaseHandler<PrepareQuizForUserCommand, 
 
         var quiz = await _unitOfWork.QuizRepo.GetByIdAsync(request.QuizId) ?? throw new EntityNotFoundException();
 
+        var userQuiz = new UserQuiz
+        {
+            Id = Guid.NewGuid(),
+            QuizCode = request.QuizCode,
+            QuizId = request.QuizId,
+            UserId = request.UserId,
+            CreatedAt = DateTime.UtcNow
+        };
+
+        var res = _unitOfWork.UserQuizRepo.Add(userQuiz);
+
+        await _unitOfWork.SaveChangesAsync();
+
+        if (res)
+        {
+            System.Console.WriteLine($"New UserQuiz created, id: {userQuiz.Id}");
+        }
+
         var userResp = new UserResponse
         {
+            Id = user.Id,
             FirstName = user.FirstName,
             LastName = user.LastName,
             DisplayName = user.DisplayName,
             Email = user.Email!,
             UserName = user.UserName!,
-            PhoneNumber = user.PhoneNumber!,
             IsActive = user.IsActive,
-            DateOfBirth = user.DateOfBirth,
         };
 
         var resp = new QuizPrepareInfoResponse

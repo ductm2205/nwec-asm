@@ -30,7 +30,12 @@ builder.Services.AddMediatR(
     config => config.RegisterServicesFromAssembly(typeof(Business).Assembly)
 );
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(
+    opt =>
+    {
+        opt.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault;
+    }
+);
 
 builder.Services.AddLogging();
 

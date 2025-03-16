@@ -28,7 +28,7 @@ public class GetQuizResultHandlerTest
         var userId = Guid.NewGuid();
         var userQuiz = new UserQuiz
         {
-            QuizCode = Guid.NewGuid(),
+            QuizCode = "220503",
             QuizId = quizId,
             UserId = userId,
             Quiz = new Quiz

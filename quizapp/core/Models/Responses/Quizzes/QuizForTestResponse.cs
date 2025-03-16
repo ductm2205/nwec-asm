@@ -8,7 +8,7 @@ public class QuizForTestResponse : IResponse
 
     public string? Description { get; set; }
 
-    public required Guid QuizCode { get; set; }
+    public required string QuizCode { get; set; }
 
     public required DateTime StartTime { get; set; }
 

@@ -74,7 +74,6 @@ public class QuizzesController : ControllerBase
     {
         _logger.LogInformation("Updating quiz with id: {Id}", id);
 
-        _logger.LogInformation("Setting request id to: {Id}", id);
         request.Id = id;
 
         var res = await _mediator.Send(request);
@@ -130,5 +129,43 @@ public class QuizzesController : ControllerBase
         return Ok(res);
     }
 
-    
+    [HttpPost("prepare-quiz-for-user")]
+    [ProducesResponseType<bool>(StatusCodes.Status200OK)]
+    [ProducesResponseType<bool>(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType<bool>(StatusCodes.Status403Forbidden)]
+    public async Task<IActionResult> PrepareQuizForUser([FromBody] PrepareQuizForUserCommand request)
+    {
+        _logger.LogInformation("Preparing quiz for user...");
+
+        var res = await _mediator.Send(request);
+
+        if (res == null)
+        {
+            _logger.LogError("Something went wrong, please try again!");
+            return BadRequest();
+        }
+
+        _logger.LogInformation("Quiz has been prepared");
+
+        return Ok(res);
+    }
+
+    [HttpPost("take-quiz")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    public async Task<IActionResult> TakeQuiz([FromBody] TakeQuizCommand request)
+    {
+        _logger.LogInformation("User taking quiz...");
+
+        var res = await _mediator.Send(request);
+
+        if (res == null)
+        {
+            _logger.LogError("Something went wrong, please try again!");
+            return BadRequest();
+        }
+
+        return Ok(res);
+    }
 }

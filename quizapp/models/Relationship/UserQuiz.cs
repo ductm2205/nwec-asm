@@ -6,9 +6,10 @@ using models.Common;
 namespace models.Relationship;
 
 [Table("UserQuizzes", Schema = "common")]
-public class UserQuiz : BaseItem
+public class UserQuiz : BaseItem, IHasId
 {
-    public required Guid QuizCode { get; set; }
+    public Guid Id { get; set; }
+    public required string QuizCode { get; set; }
 
     public Guid UserId { get; set; }
 
@@ -21,5 +22,4 @@ public class UserQuiz : BaseItem
     public DateTime FinishedAt { get; set; }
 
     public List<UserAnswer>? UserAnswers { get; set; }
-
 }
