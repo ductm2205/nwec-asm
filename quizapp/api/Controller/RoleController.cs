@@ -3,6 +3,7 @@ using business.Commands.Roles;
 using core.Models;
 using core.Models.Responses;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +14,7 @@ namespace api.Controller;
 [Produces("application/json")]
 [Route("api/v{version:apiVersion}/roles")]
 [ApiVersion("1.0")]
+[Authorize(Roles = "System Administrator, Administrator")]
 public class RoleController : ControllerBase
 {
     private readonly IMediator _mediator;

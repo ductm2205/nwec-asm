@@ -27,7 +27,7 @@ public class TokenService : ITokenService
         };
 
         claims.AddRange(roles.Select(r => new Claim(ClaimTypes.Role, r)));
-
+        System.Console.WriteLine("Security key: {0}",_configuration["JWT:Secret"]);
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"] ?? "DefaultSecretKeyWithAtLeast32Characters"));
 
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -42,6 +42,6 @@ public class TokenService : ITokenService
             expires: expire
         );
 
-        return token.ToString();
+        return new JwtSecurityTokenHandler().WriteToken(token);
     }
 }

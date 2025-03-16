@@ -16,7 +16,7 @@ public class LoginHandler : BaseHandler<LoginCommand, LoginResponse>
 {
     private readonly UserManager<User> _userManager;
     private readonly ITokenService _tokenService;
-    public LoginHandler(IUnitOfWork unitOfWork, UserManager<User> userManager, RoleManager<Role> roleManager, ITokenService tokenService) : base(unitOfWork)
+    public LoginHandler(IUnitOfWork unitOfWork, UserManager<User> userManager, ITokenService tokenService) : base(unitOfWork)
     {
         _userManager = userManager;
         _tokenService = tokenService;

@@ -6,6 +6,7 @@ using core.Models;
 using core.Models.Requests.Quizzes;
 using core.Models.Responses;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,6 +16,7 @@ namespace api.Controller;
 [Produces("application/json")]
 [Route("api/v{version:apiVersion}/quizzes")]
 [ApiVersion("1.0")]
+[Authorize]
 public class QuizzesController : ControllerBase
 {
     private readonly IMediator _mediator;

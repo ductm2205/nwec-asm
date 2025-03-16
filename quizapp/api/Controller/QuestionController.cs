@@ -5,6 +5,7 @@ using core.Models;
 using core.Models.Requests.Questions;
 using core.Models.Responses;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using models.Common;
 
@@ -14,6 +15,7 @@ namespace api.Controller;
 [Produces("application/json")]
 [Route("api/v{version:apiVersion}/questions")]
 [ApiVersion("1.0")]
+[Authorize]
 public class QuestionController(IMediator mediator, ILogger<QuestionController> logger) : ControllerBase
 {
     private readonly IMediator _mediator = mediator;

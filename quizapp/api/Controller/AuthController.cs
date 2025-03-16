@@ -31,4 +31,16 @@ public class AuthController : ControllerBase
 
         return Ok(res);
     }
+
+    [HttpPost("register")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult> Register([FromBody] RegisterCommand request)
+    {
+        _logger.LogInformation("Registering new user...");
+
+        var res = await _mediator.Send(request);
+
+        return Ok(res);
+    }
 }

@@ -1,3 +1,4 @@
+using System.Text;
 using api.Extensions;
 using business;
 using business.Services.Auth;
@@ -5,8 +6,10 @@ using data.Context;
 using data.Infrastructures;
 using data.Infrastructures.Repository;
 using data.Seeder;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using models.Auth;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,6 +42,7 @@ builder.Services.AddControllers().AddJsonOptions(
 );
 
 builder.Services.AddLogging();
+builder.Logging.AddFilter("Microsoft.AspNetCore.Authentication", LogLevel.Debug);
 
 // Register Identity
 builder.Services.AddIdentity<User, Role>(options =>
@@ -57,8 +61,41 @@ builder.Services.AddIdentity<User, Role>(options =>
 // Register token service
 builder.Services.AddScoped<ITokenService, TokenService>();
 
+// Register JWT Authentication
+builder.Services.AddAuthentication(
+    opt =>
+    {
+        opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        opt.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+    }
+).AddJwtBearer(options =>
+{
+    options.SaveToken = true;
+    options.RequireHttpsMetadata = false;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["JWT:Issuer"],
+        ValidAudience = builder.Configuration["JWT:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+            builder.Configuration["JWT:Secret"] ?? throw new InvalidOperationException("JWT:Secret is not configured.")))
+    };
+});
+
 var app = builder.Build();
 
+app.UseHttpsRedirection();
+
+app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllers();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -83,9 +120,6 @@ if (app.Environment.IsDevelopment())
         System.Console.WriteLine("Exception: " + ex.Message);
     }
 }
-
-app.UseHttpsRedirection();
-app.MapControllers();
 
 
 await app.RunAsync();

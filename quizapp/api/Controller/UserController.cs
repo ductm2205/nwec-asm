@@ -3,6 +3,7 @@ using business.Commands.Users;
 using core.Models;
 using core.Models.Responses;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controller;
@@ -11,6 +12,7 @@ namespace api.Controller;
 [Produces("application/json")]
 [Route("api/v{version:apiVersion}/users")]
 [ApiVersion("1.0")]
+[Authorize(Roles = "System Administrator, Administrator")]
 public class UserController : ControllerBase
 {
     private readonly IMediator _mediator;
