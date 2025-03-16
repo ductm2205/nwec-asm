@@ -105,11 +105,30 @@ public class QuizzesController : ControllerBase
     public async Task<IActionResult> AddQuestionToQuiz([FromBody] business.Commands.Questions.CreateCommand question)
     {
         _logger.LogInformation("Adding new question to quiz...");
-        
+
         var res = await _mediator.Send(question);
 
         _logger.LogInformation("New question added");
 
         return Ok(res);
     }
+
+    [HttpDelete("{id}/questions/{questionId}")]
+    [ProducesResponseType<bool>(StatusCodes.Status200OK)]
+    [ProducesResponseType<bool>(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType<bool>(StatusCodes.Status403Forbidden)]
+    public async Task<IActionResult> DeleteQuestionFromQuiz(Guid id, Guid questionId)
+    {
+        _logger.LogInformation("Removing question with {QuesId} from quiz with {QuizId}", questionId, id);
+
+        var request = new QuestionDeleteCommand { Id = questionId };
+
+        var res = await _mediator.Send(request);
+
+        _logger.LogInformation("Question removed");
+
+        return Ok(res);
+    }
+
+    
 }
