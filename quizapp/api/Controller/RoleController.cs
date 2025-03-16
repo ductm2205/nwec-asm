@@ -89,7 +89,10 @@ public class RoleController : ControllerBase
 
         var res = await _mediator.Send(request);
 
-        _logger.LogInformation("Role updated");
+        if (res)
+        {
+            _logger.LogInformation("Role updated");
+        }
         return Ok(res);
     }
 }
