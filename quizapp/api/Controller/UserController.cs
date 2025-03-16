@@ -1,5 +1,7 @@
 using System;
 using business.Commands;
+using business.Commands.Users;
+using core.Models;
 using core.Models.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -40,5 +42,33 @@ public class UserController : ControllerBase
 
         _logger.LogInformation("Successfully retrieved user with ID: {Id}", id);
         return Ok(user);
+    }
+
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    public async Task<ActionResult<PaginatedResult<UserResponse>>> GetAll()
+    {
+        _logger.LogInformation("Getting all users");
+        var query = new GetAllCommand<UserResponse>();
+
+        var res = await _mediator.Send(query);
+        _logger.LogInformation("Done fetching!");
+
+        return Ok(res);
+    }
+
+    [HttpPost]
+    [ProducesResponseType<bool>(StatusCodes.Status200OK)]
+    [ProducesResponseType<bool>(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType<bool>(StatusCodes.Status403Forbidden)]
+    public async Task<ActionResult> CreateUser([FromBody] CreateCommand request)
+    {
+        _logger.LogInformation("Adding new user...");
+        var res = await _mediator.Send(request);
+
+        _logger.LogInformation("User created");
+        return Ok(res);
     }
 }
