@@ -60,7 +60,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-    [ProducesResponseType<bool>(StatusCodes.Status200OK)]
+    [ProducesResponseType<bool>(StatusCodes.Status201Created)]
     [ProducesResponseType<bool>(StatusCodes.Status400BadRequest)]
     [ProducesResponseType<bool>(StatusCodes.Status403Forbidden)]
     public async Task<ActionResult> CreateUser([FromBody] CreateCommand request)
@@ -89,6 +89,20 @@ public class UserController : ControllerBase
         var res = await _mediator.Send(request);
 
         _logger.LogInformation("User updated");
+        return Ok(res);
+    }
+
+    [HttpDelete("{id}")]
+    [ProducesResponseType<bool>(StatusCodes.Status200OK)]
+    [ProducesResponseType<bool>(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType<bool>(StatusCodes.Status403Forbidden)]
+    public async Task<ActionResult> DeleteUser(Guid id)
+    {
+        _logger.LogInformation("Deleting user with id: {Id}", id);
+        var query = new UserDeleteCommand { Id = id };
+        var res = await _mediator.Send(query);
+        _logger.LogInformation("user with id: {Id} deleted", id);
+
         return Ok(res);
     }
 }
