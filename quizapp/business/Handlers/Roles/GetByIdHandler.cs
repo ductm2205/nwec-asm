@@ -14,6 +14,7 @@ public class GetByIdHandler(IUnitOfWork unitOfWork) : BaseHandler<GetByIdCommand
         var res = new RoleResponse()
         {
             Id = role.Id,
+            Name = role.Name,
             Description = role.Description,
             IsActive = role.IsActive,
             CreatedAt = role.CreatedAt,
