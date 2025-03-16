@@ -168,4 +168,25 @@ public class QuizzesController : ControllerBase
 
         return Ok(res);
     }
+
+    [HttpPost("submit-quiz")]
+    [ProducesResponseType<bool>(StatusCodes.Status200OK)]
+    [ProducesResponseType<bool>(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType<bool>(StatusCodes.Status403Forbidden)]
+    public async Task<IActionResult> SubmitQuiz([FromBody] SubmitQuizCommand request)
+    {
+        _logger.LogInformation("User submitting quiz answers...");
+
+        var result = await _mediator.Send(request);
+
+        if (!result)
+        {
+            _logger.LogError("Failed to submit quiz answers");
+            return BadRequest();
+        }
+
+        _logger.LogInformation("Quiz answers submitted successfully");
+
+        return Ok(result);
+    }
 }
