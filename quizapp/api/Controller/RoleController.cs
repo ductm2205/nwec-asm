@@ -95,4 +95,18 @@ public class RoleController : ControllerBase
         }
         return Ok(res);
     }
+
+    [HttpDelete("{id}")]
+    [ProducesResponseType<bool>(StatusCodes.Status200OK)]
+    [ProducesResponseType<bool>(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType<bool>(StatusCodes.Status403Forbidden)]
+    public async Task<ActionResult> DeleteRole(Guid id)
+    {
+        _logger.LogInformation("Deleting role with id: {Id}", id);
+        var query = new RoleDeleteCommand { Id = id };
+        var res = await _mediator.Send(query);
+        _logger.LogInformation("role with id: {Id} deleted", id);
+
+        return Ok(res);
+    }
 }
