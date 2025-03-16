@@ -7,7 +7,7 @@ using models.Relationship;
 
 namespace data.Context;
 
-public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbContext(options)
+public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbContext<User, Role, Guid>(options)
 {
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -29,11 +29,11 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : IdentityDbCo
         // users & roles
         builder.Entity<User>().ToTable("Users", "auth");
         builder.Entity<Role>().ToTable("Roles", "auth");
-        builder.Entity<IdentityUserClaim<string>>().ToTable("UserClaims", "auth");
-        builder.Entity<IdentityUserRole<string>>().ToTable("UserRoles", "auth");
-        builder.Entity<IdentityUserLogin<string>>().ToTable("UserLogins", "auth");
-        builder.Entity<IdentityRoleClaim<string>>().ToTable("RoleClaims", "auth");
-        builder.Entity<IdentityUserToken<string>>().ToTable("UserTokens", "auth");
+        builder.Entity<IdentityUserClaim<Guid>>().ToTable("UserClaims", "auth");
+        builder.Entity<IdentityUserRole<Guid>>().ToTable("UserRoles", "auth");
+        builder.Entity<IdentityUserLogin<Guid>>().ToTable("UserLogins", "auth");
+        builder.Entity<IdentityRoleClaim<Guid>>().ToTable("RoleClaims", "auth");
+        builder.Entity<IdentityUserToken<Guid>>().ToTable("UserTokens", "auth");
 
         // user quiz
         builder.Entity<UserQuiz>().HasKey(uq => uq.QuizCode);
