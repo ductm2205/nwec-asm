@@ -1,5 +1,6 @@
 using api.Extensions;
 using business;
+using business.Services.Auth;
 using data.Context;
 using data.Infrastructures;
 using data.Infrastructures.Repository;
@@ -52,6 +53,9 @@ builder.Services.AddIdentity<User, Role>(options =>
 })
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
+
+// Register token service
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 var app = builder.Build();
 
