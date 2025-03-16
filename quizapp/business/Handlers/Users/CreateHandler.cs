@@ -34,7 +34,8 @@ public class CreateHandler : BaseHandler<CreateCommand, bool>
             PhoneNumber = request.PhoneNumber,
             DateOfBirth = request.DateOfBirth,
             IsActive = request.IsActive,
-            EmailConfirmed = true
+            EmailConfirmed = true,
+            CreatedAt = DateTime.UtcNow
         };
 
         var hashedPassword = pwHasher.HashPassword(user, request.Password);

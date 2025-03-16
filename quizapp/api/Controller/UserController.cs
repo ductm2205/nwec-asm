@@ -71,4 +71,24 @@ public class UserController : ControllerBase
         _logger.LogInformation("User created");
         return Ok(res);
     }
+
+    [HttpPut("{id}")]
+    [ProducesResponseType<bool>(StatusCodes.Status200OK)]
+    [ProducesResponseType<bool>(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType<bool>(StatusCodes.Status403Forbidden)]
+    public async Task<ActionResult> UpdateUser(Guid id, [FromBody] UpdateCommand request)
+    {
+        if (id != request.Id)
+        {
+            _logger.LogWarning("ID mismatch: Path ID {PathId} doesn't match body ID {BodyId}", id, request.Id);
+            return BadRequest("ID in the path must match ID in the request body");
+        }
+
+        _logger.LogInformation("Updating user with id: {Id}", id);
+
+        var res = await _mediator.Send(request);
+
+        _logger.LogInformation("User updated");
+        return Ok(res);
+    }
 }
