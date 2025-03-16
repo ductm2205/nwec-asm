@@ -24,5 +24,5 @@ public class UserResponse : IResponse
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
 
-    public ICollection<IdentityUserRole<Guid>> Roles { get; set; } = [];
+    public ICollection<string> Roles { get; set; } = [];
 }
