@@ -22,8 +22,6 @@ public class CreateHandler : BaseHandler<CreateCommand, bool>
             throw new ValidationException("Password and confirmation password do not match.");
         }
 
-        var pwHasher = new PasswordHasher<User>();
-
 
         var user = new User
         {
@@ -38,8 +36,7 @@ public class CreateHandler : BaseHandler<CreateCommand, bool>
             CreatedAt = DateTime.UtcNow
         };
 
-        var hashedPassword = pwHasher.HashPassword(user, request.Password);
-        var result = await _userManager.CreateAsync(user, hashedPassword);
+        var result = await _userManager.CreateAsync(user, request.Password);
 
         if (!result.Succeeded)
         {

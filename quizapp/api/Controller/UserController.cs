@@ -1,4 +1,3 @@
-using System;
 using business.Commands;
 using business.Commands.Users;
 using core.Models;
@@ -102,6 +101,24 @@ public class UserController : ControllerBase
         var query = new UserDeleteCommand { Id = id };
         var res = await _mediator.Send(query);
         _logger.LogInformation("user with id: {Id} deleted", id);
+
+        return Ok(res);
+    }
+
+    [HttpPost("change-password")]
+    [ProducesResponseType<bool>(StatusCodes.Status200OK)]
+    [ProducesResponseType<bool>(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType<bool>(StatusCodes.Status403Forbidden)]
+    public async Task<ActionResult> ChangePassword([FromBody] ChangePasswordCommand request)
+    {
+
+        _logger.LogInformation("Changing password for user with id: {Id}", request.Id);
+        var res = await _mediator.Send(request);
+
+        if (res)
+        {
+            _logger.LogInformation("Password updated for user with id: {Id}", request.Id);
+        }
 
         return Ok(res);
     }
