@@ -124,4 +124,18 @@ public class UserController : ControllerBase
 
         return Ok(res);
     }
+
+    [HttpPost("search")]
+    [ProducesResponseType<bool>(StatusCodes.Status200OK)]
+    [ProducesResponseType<bool>(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType<bool>(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType<bool>(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> SearchUsers([FromBody] UserSearchQuery request)
+    {
+        if (request.PageNumber < 1) request.PageNumber = 1;
+        if (request.PageSize < 1) request.PageSize = 10;
+
+        var res = await _mediator.Send(request);
+        return Ok(res);
+    }
 }
